@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meet Our Team | NSS GEC Banka</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = { theme: { extend: { colors: { accent: '#E0F7FA', nssBlue: '#0288D1', bodyText: '#212529', headingText: '#0D47A1' } } } };
+    </script>
+    <style>
+      body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+      .font-heading { font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+      /* Equal card heights and responsive fixes */
+      #student-grid > div { display: flex; flex-direction: column; height: 100%; transition: box-shadow 200ms ease; }
+      #student-grid .relative { height: 224px; }
+      @media (min-width: 768px) { #student-grid .relative { height: 256px; } }
+      #student-grid .p-4 { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+      /* Hover lift for all cards */
+      #student-grid > div:hover { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); }
+      /* Role badge displayed on every student card */
+      #student-grid .p-4::before {
+        content: 'Student Co-ordinator';
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem; /* text-xs */
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        background-color: #E0F7FA; /* accent */
+        color: #0D47A1; /* headingText */
+        border-radius: 9999px;
+        margin-bottom: 0.5rem;
+      }
+    </style>
+  </head>
+  <body class="bg-white text-bodyText">
+    <!-- Header & Navigation (Sticky, pill-style) -->
+    <header class="sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+        <div class="bg-white/95 backdrop-blur border border-gray-200 rounded-full shadow-md px-6 sm:px-8 py-3 flex items-center justify-between">
+          <!-- Brand -->
+          <a href="index.html" class="flex items-center gap-3">
+            <svg class="w-9 h-9 sm:w-10 sm:h-10 select-none" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NSS Logo">
+              <image href="https://res.cloudinary.com/ddi81vnxw/image/upload/logo_dfqvjk.jpg" width="64" height="64" preserveAspectRatio="xMidYMid meet" draggable="false" style="-webkit-user-drag: none; user-select: none;" />
+            </svg>
+            <span class="font-heading text-lg sm:text-xl md:text-2xl font-bold text-headingText">NSS GEC Banka</span>
+          </a>
+          <!-- Desktop Nav with icons -->
+          <nav class="hidden md:flex items-center gap-7 sm:gap-8">
+            <a href="index.html" class="flex items-center gap-3 text-sm sm:text-base md:text-lg font-semibold uppercase tracking-wide text-headingText hover:text-nssBlue">
+              <i class="fas fa-home w-5 h-5"></i>
+              <span>Home</span>
+            </a>
+            <a href="objectives.html" class="flex items-center gap-3 text-sm sm:text-base md:text-lg font-semibold uppercase tracking-wide text-headingText hover:text-nssBlue">
+              <i class="fas fa-bullseye w-5 h-5"></i>
+              <span>Objectives</span>
+            </a>
+            <a href="activities.html" class="flex items-center gap-3 text-sm sm:text-base md:text-lg font-semibold uppercase tracking-wide text-headingText hover:text-nssBlue" aria-label="Activities">
+              <i class="fas fa-tasks w-5 h-5"></i>
+              <span>Activities</span>
+            </a>
+            <a href="team.html" class="flex items-center gap-3 text-sm sm:text-base md:text-lg font-semibold uppercase tracking-wide text-headingText hover:text-nssBlue">
+              <i class="fas fa-users w-5 h-5"></i>
+              <span>Team</span>
+            </a>
+          </nav>
+          <!-- Mobile toggle -->
+          <button id="mobile-menu-button" aria-label="Toggle navigation" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="md:hidden inline-flex items-center justify-center p-2 rounded-full bg-white text-headingText hover:text-nssBlue border border-gray-200">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+          </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden mt-2 bg-white/95 backdrop-blur rounded-2xl shadow border border-gray-200">
+          <div class="px-4 py-3 space-y-2">
+            <a href="index.html" class="flex items-center gap-3 py-2 text-base font-semibold text-headingText hover:text-nssBlue">
+              <i class="fas fa-home w-5 h-5"></i>
+              <span>Home</span>
+            </a>
+            <a href="objectives.html" class="flex items-center gap-3 py-2 text-base font-semibold text-headingText hover:text-nssBlue">
+              <i class="fas fa-bullseye w-5 h-5"></i>
+              <span>Objectives</span>
+            </a>
+            <a href="activities.html" class="flex items-center gap-3 py-2 text-base font-semibold text-headingText hover:text-nssBlue" aria-label="Activities">
+              <i class="fas fa-tasks w-5 h-5"></i>
+              <span>Activities</span>
+            </a>
+            <a href="team.html" class="flex items-center gap-3 py-2 text-base font-semibold text-headingText hover:text-nssBlue">
+              <i class="fas fa-users w-5 h-5"></i>
+              <span>Team</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="bg-accent/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <h1 class="font-heading text-3xl sm:text-4xl font-bold text-headingText">Meet Our Team</h1>
+        <p class="mt-3 max-w-3xl text-sm sm:text-base">Our Dedicated Programme Co-ordinator and Individuals with Passion and Responsibility Behind Our NSS Team at Government Engineering College Banka.</p>
+      </div>
+    </section>
+
+    <!-- Chief Co-ordinator and Programme Coordinator Grid -->
+    <section class="py-12 sm:py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid gap-6 sm:grid-cols-2 items-stretch auto-rows-fr">
+          <!-- Chief Co-ordinator Card (student-card dimensions) -->
+          <div class="max-w-xs mx-auto bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+            <div class="relative w-full h-56 md:h-64 overflow-hidden">
+              <img class="object-cover w-full h-full" src="https://placehold.co/400x450/E0E7FF/000000?text=Chief Co-ordinator" alt="Chief Co-ordinator">
+            </div>
+            <div class="p-4 text-center">
+              <span class="inline-flex items-center px-3 py-1.5 text-xs font-semibold uppercase tracking-wide bg-accent text-headingText rounded-full">Chief Co-ordinator</span>
+              <h3 class="mt-2 text-xl font-semibold text-headingText">Dr.Shabbiruddin</h3>
+              <p class="mt-1 text-sm text-gray-500">Principal, Government Engineering College Banka</p>
+            </div>
+          </div>
+
+          <!-- Programme Co-ordinator Card (student-card dimensions) -->
+          <div class="max-w-xs mx-auto bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+            <div class="relative w-full h-56 md:h-64 overflow-hidden">
+              <img class="object-cover w-full h-full" src="https://placehold.co/400x450/E0E7FF/000000?text=Programme Co-ordinator" alt="Programme Co-ordinator">
+            </div>
+            <div class="p-4 text-center">
+              <span class="inline-flex items-center px-3 py-1.5 text-xs font-semibold uppercase tracking-wide bg-accent text-headingText rounded-full">Programme Co-ordinator</span>
+              <h3 class="mt-2 text-xl font-semibold text-headingText">Prof. Rajiv Ranjan</h3>
+              <p class="mt-1 text-sm text-gray-500">Faculty, Government Engineering College Banka</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Student co ordinator Grid -->
+    <section class="py-6 sm:py-10 bg-accent/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-headingText">Student Co-ordinators </h2>
+        <!-- Inline styles scoped to Student Co-ordinators cards -->
+        <style>
+          /* Base card transitions */
+          #student-grid .student-card {
+            transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+            will-change: transform;
+          }
+          #student-grid .student-card img {
+            transition: transform 200ms ease;
+            will-change: transform;
+          }
+
+          /* Desktop hover effects */
+          @media (min-width: 640px) {
+            #student-grid .student-card:hover {
+              transform: translateY(-2px) scale(1.03);
+              box-shadow: 0 12px 24px rgba(13, 71, 161, 0.15);
+              border-color: #0D47A1; /* nssBlue accent */
+            }
+            #student-grid .student-card:hover img {
+              transform: scale(1.05);
+            }
+          }
+
+          /* Mobile: highlight when fully in view */
+          @media (max-width: 639.98px) {
+            #student-grid .student-card.in-view {
+              transform: scale(1.02);
+              box-shadow: 0 10px 20px rgba(13, 71, 161, 0.12);
+              border-color: #0D47A1; /* accent border on active card */
+            }
+          }
+
+          /* Developer Card Custom Styles */
+          #pratik-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important; /* Deep Slate / Midnight Navy */
+            border: 1px solid #334155 !important;
+            color: #f1f5f9 !important;
+          }
+          #pratik-card:hover {
+            border-color: #38bdf8 !important; /* Sky blue glow */
+            box-shadow: 0 10px 30px -10px rgba(56, 189, 248, 0.5) !important;
+            transform: translateY(-4px) scale(1.02);
+          }
+          #pratik-card .p-4::before {
+            display: none !important;
+          }
+          #pratik-card .dev-font {
+            font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+          }
+          /* Icon hover effects specific to Pratik's card */
+          #pratik-card .icon-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          }
+          #pratik-card .icon-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+          }
+          /* Mail Icon: Red by default */
+          #pratik-card .icon-mail {
+            color: #ef4444 !important; /* Red-500 */
+            border-color: #ef4444 !important;
+          }
+          #pratik-card .icon-mail:hover {
+            background-color: #ef4444 !important;
+            color: white !important;
+          }
+          /* Insta Icon: Pink/Purple Gradient Text by default */
+          #pratik-card .icon-insta {
+            color: #d946ef !important; /* Fuchsia-500 fallback */
+            border-color: #d946ef !important;
+          }
+          #pratik-card .icon-insta:hover {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
+            border-color: transparent !important;
+            color: white !important;
+          }
+        </style>
+        <div id="student-grid" class="mt-6 grid gap-6 items-stretch auto-rows-fr sm:grid-cols-2 lg:grid-cols-3">
+
+          <!-- New Card Design for Members -->
+          <div class="student-card max-w-xs mx-auto bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+            <div class="relative w-full h-56 md:h-64 overflow-hidden">
+              <img class="object-cover w-full h-full" style="width: 100%; height: 100%; object-fit: cover;" src="https://res.cloudinary.com/ddi81vnxw/image/upload/Ashish-Kumar_ysz79c.jpg" alt="Ashish Kumar">
+            </div>
+            <div class="p-4 text-center">
+              <h3 class="text-xl font-semibold text-headingText">Ashish Kumar</h3>
+              <p class="mt-1 text-sm text-gray-500">ECE Department</p>
+              <div class="mt-4 flex items-center justify-center gap-3">
+                <a href="mailto:ashishraza01@gmail.com" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200" aria-label="Email Ashish Kumar">
+                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                  </svg>
+                </a>
+                <a href="https://www.instagram.com/_Raza01/" target="_blank" rel="noopener noreferrer" aria-label="Ashish Kumar on Instagram" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200">
+                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 2h10c2.757 0 5 2.243 5 5v10c0 2.757-2.243 5-5 5H7c-2.757 0-5-2.243-5-5V7c0-2.757 2.243-5 5-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6zm5.5-3a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="student-card max-w-xs mx-auto bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+            <div class="relative w-full h-56 md:h-64 overflow-hidden">
+              <img class="object-cover w-full h-full" src="https://res.cloudinary.com/ddi81vnxw/image/upload/IMG20251130135548_-_Gagan_jha_jtu6zz.jpg" alt="Gagan Jha">
+            </div>
+            <div class="p-4 text-center">
+              <h3 class="text-xl font-semibold text-headingText">Gagan Kr Jha</h3>
+              <p class="mt-1 text-sm text-gray-500">ECE Department</p>
+              <div class="mt-4 flex items-center justify-center gap-3">
+                <a href="mailto:gjha4870@gmail.com" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200" aria-label="Email Gagan Jha">
+                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                </a>
+                <a href="https://www.instagram.com/gaganjha43/" target="_blank" rel="noopener noreferrer" aria-label="Gagan Jha on Instagram" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200">
+                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 2h10c2.757 0 5 2.243 5 5v10c0 2.757-2.243 5-5 5H7c-2.757 0-5-2.243-5-5V7c0-2.757 2.243-5 5-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6zm5.5-3a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="student-card max-w-xs mx-auto bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+            <div class="relative w-full h-56 md:h-64 overflow-hidden">
+              <img class="object-cover w-full h-full" src="https://res.cloudinary.com/ddi81vnxw/image/upload/v1766650897/IMG_20250520_101612_992_kodfrj.webp" alt="Priyanshu Kumar">
+            </div>
+            <div class="p-4 text-center">
+              <h3 class="text-xl font-semibold text-headingText">Priyanshu Kumar</h3>
+              <p class="mt-1 text-sm text-gray-500">ECE Department</p>
+              <div class="mt-4 flex items-center justify-center gap-3">
+                <a href="mailto:priyanshu8102145@gmail.com" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200" aria-label="Email Priyanshu Kr Prajapati">
+                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                </a>
+                <a href="https://www.instagram.com/priyanshu.81021" target="_blank" rel="noopener noreferrer" aria-label="Priyanshu Kumar Prajapati on Instagram" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200">
+                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 2h10c2.757 0 5 2.243 5 5v10c0 2.757-2.243 5-5 5H7c-2.757 0-5-2.243-5-5V7c0-2.757 2.243-5 5-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6zm5.5-3a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="student-card max-w-xs mx-auto bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+            <div class="relative w-full h-56 md:h-64 overflow-hidden">
+              <img class="object-cover w-full h-full" src="https://res.cloudinary.com/ddi81vnxw/image/upload/v1765318652/WhatsApp_Image_2025-12-10_at_03.46.59_iwa2b5.jpg" alt="Shruti Shreya">
+            </div>
+            <div class="p-4 text-center">
+              <h3 class="text-xl font-semibold text-headingText">Shruti Shreya</h3>
+              <p class="mt-1 text-sm text-gray-500">ECE Department</p>
+              <div class="mt-4 flex items-center justify-center gap-3">
+                <a href="mailto:shrutishreya010@gmail.com" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200" aria-label="Email Shruti Shreya">
+                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                </a>
+                <a href="https://www.instagram.com/_shreya__shruti__" target="_blank" rel="noopener noreferrer" aria-label="Shruti Shreya on Instagram" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200">
+                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 2h10c2.757 0 5 2.243 5 5v10c0 2.757-2.243 5-5 5H7c-2.757 0-5-2.243-5-5V7c0-2.757 2.243-5 5-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6zm5.5-3a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="student-card max-w-xs mx-auto bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+            <div class="relative w-full h-56 md:h-64 overflow-hidden">
+              <img class="object-cover w-full h-full" src="https://res.cloudinary.com/ddi81vnxw/image/upload/IMG-20250823-WA0280_-_DIVYA_KUMARI_fnmzt2.jpg" alt="Divya Chaudhary">
+            </div>
+            <div class="p-4 text-center">
+              <h3 class="text-xl font-semibold text-headingText">Divya Chaudhary</h3>
+              <p class="mt-1 text-sm text-gray-500">ECE Department</p>
+              <div class="mt-4 flex items-center justify-center gap-3" role="group" aria-label="Contact links for Priyanshu Kumar">
+                <a href="mailto:divyakumari847301@gmail.com" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200" aria-label="Email Divya Chaudhary">
+                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                </a>
+                <a href="https://www.instagram.com/divya_chy238/" target="_blank" rel="noopener noreferrer" aria-label="Divya Chaudhary on Instagram" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200">
+                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 2h10c2.757 0 5 2.243 5 5v10c0 2.757-2.243 5-5 5H7c-2.757 0-5-2.243-5-5V7c0-2.757 2.243-5 5-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6zm5.5-3a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="student-card max-w-xs mx-auto bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+            <div class="relative w-full h-56 md:h-64 overflow-hidden">
+              <img class="object-cover w-full h-full" src="https://res.cloudinary.com/ddi81vnxw/image/upload/IMG_20251130_224246_-_Monika_Kumari_byoicg.jpg" alt="Monika Kumari">
+            </div>
+            <div class="p-4 text-center">
+              <h3 class="text-xl font-semibold text-headingText">Monika Kumari</h3>
+              <p class="mt-1 text-sm text-gray-500">CSE-IOT Department</p>
+              <div class="mt-4 flex items-center justify-center gap-3">
+                <a href="mailto:krishamonika27@gmail.com" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200" aria-label="Email Monika Kumari">
+                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                </a>
+                <a href="https://www.instagram.com/monikaaa_72/" target="_blank" rel="noopener noreferrer" aria-label="Monika on Instagram" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200">
+                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 2h10c2.757 0 5 2.243 5 5v10c0 2.757-2.243 5-5 5H7c-2.757 0-5-2.243-5-5V7c0-2.757 2.243-5 5-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6zm5.5-3a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="max-w-xs mx-auto bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+            <div class="relative w-full h-56 md:h-64 overflow-hidden">
+    <img class="object-cover w-full h-full" src="https://res.cloudinary.com/ddi81vnxw/image/upload/IMG-20250814-WA0063_-_Shiwani_Kumari_bl6vaz.jpg" alt="Rahul Kumar">
+  </div>
+  <div class="p-4 text-center">
+    <h3 class="text-xl font-semibold text-headingText">Shiwani Kumari</h3>
+    <p class="mt-1 text-sm text-gray-500">CSE-IOT Department</p>
+    <div class="mt-4 flex items-center justify-center gap-3">
+      <a href="mailto:shiwanikashyap9304@gmail.com" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200" aria-label="Email Shiwani Kumari">
+        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/Shiwa.ni4927/" target="_blank" rel="noopener noreferrer" aria-label="Shiwani Kumari on Instagram" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200">
+        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 2h10c2.757 0 5 2.243 5 5v10c0 2.757-2.243 5-5 5H7c-2.757 0-5-2.243-5-5V7c0-2.757 2.243-5 5-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6zm5.5-3a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="student-card max-w-xs mx-auto bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+  <div class="relative w-full h-56 md:h-64 overflow-hidden">
+    <img class="object-cover w-full h-full" src="https://res.cloudinary.com/ddi81vnxw/image/upload/IMG_20251202_220821_-_Thakurs_gxfzwq.jpg" alt="Ritik Raushan">
+  </div>
+  <div class="p-4 text-center">
+    <h3 class="text-xl font-semibold text-headingText">Ritik Raushan</h3>
+    <p class="mt-1 text-sm text-gray-500">CSE Department</p>
+    <div class="mt-4 flex items-center justify-center gap-3">
+      <a href="mailto:sahilthakur845401@gmail.com" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200" aria-label="Email Ritik Raushan">
+        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/sahil_thakur909/" target="_blank" rel="noopener noreferrer" aria-label="Ritik Raushan on Instagram" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200">
+        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 2h10c2.757 0 5 2.243 5 5v10c0 2.757-2.243 5-5 5H7c-2.757 0-5-2.243-5-5V7c0-2.757 2.243-5 5-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6zm5.5-3a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="student-card max-w-xs mx-auto bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+  <div class="relative w-full h-56 md:h-64 overflow-hidden">
+    <img class="object-cover w-full h-full" src="https://placehold.co/400x450/E0E7FF/000000?text=Image" alt="Alisha Kumari">
+  </div>
+  <div class="p-4 text-center">
+    <h3 class="text-xl font-semibold text-headingText">Alisha Kumari</h3>
+    <p class="mt-1 text-sm text-gray-500">Civil Department</p>
+    <div class="mt-4 flex items-center justify-center gap-3">
+      <a href="mailto:nssgecbanka@gmail.com?subject=Message%20for%20Alisha%20Kumari" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200" aria-label="Email Alisha Kumari">
+        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </a>
+      <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Alisha Kumari on Instagram" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200">
+        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 2h10c2.757 0 5 2.243 5 5v10c0 2.757-2.243 5-5 5H7c-2.757 0-5-2.243-5-5V7c0-2.757 2.243-5 5-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6zm5.5-3a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="student-card max-w-xs mx-auto bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+  <div class="relative w-full h-56 md:h-64 overflow-hidden">
+    <img class="object-cover w-full h-full" src="https://placehold.co/400x450/E0E7FF/000000?text=Image" alt="Richa Priya">
+  </div>
+  <div class="p-4 text-center">
+    <h3 class="text-xl font-semibold text-headingText">Richa Priya</h3>
+    <p class="mt-1 text-sm text-gray-500">Civil Department</p>
+    <div class="mt-4 flex items-center justify-center gap-3">
+      <a href="mailto:nssgecbanka@gmail.com?subject=Message%20for%20Richa%20Priya" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200" aria-label="Email Richa Priya">
+        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </a>
+      <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Richa Priya on Instagram" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200">
+        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 2h10c2.757 0 5 2.243 5 5v10c0 2.757-2.243 5-5 5H7c-2.757 0-5-2.243-5-5V7c0-2.757 2.243-5 5-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6zm5.5-3a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="student-card max-w-xs mx-auto bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+  <div class="relative w-full h-56 md:h-64 overflow-hidden">
+    <img class="object-cover w-full h-full" src="https://res.cloudinary.com/ddi81vnxw/image/upload/1762355450337.1754904239107_-_RIP_Game_changer_gjljpp.jpg" alt="Aman Raj">
+  </div>
+  <div class="p-4 text-center">
+    <h3 class="text-xl font-semibold text-headingText">Aman Raj</h3>
+    <p class="mt-1 text-sm text-gray-500">EE Department</p>
+    <div class="mt-4 flex items-center justify-center gap-3">
+      <a href="mailto:shauriyaraz123@gmail.com" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200" aria-label="Email Aman Raj">
+        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/amanraz01/" target="_blank" rel="noopener noreferrer" aria-label="Aman Raj on Instagram" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200">
+        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 2h10c2.757 0 5 2.243 5 5v10c0 2.757-2.243 5-5 5H7c-2.757 0-5-2.243-5-5V7c0-2.757 2.243-5 5-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6zm5.5-3a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="student-card max-w-xs mx-auto bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+  <div class="relative w-full h-56 md:h-64 overflow-hidden">
+    <img class="object-cover w-full h-full" src="https://placehold.co/400x450/E0E7FF/000000?text=Image" alt="Satyam Kumar">
+  </div>
+  <div class="p-4 text-center">
+    <h3 class="text-xl font-semibold text-headingText">Satyam Kumar</h3>
+    <p class="mt-1 text-sm text-gray-500">EE Department</p>
+    <div class="mt-4 flex items-center justify-center gap-3">
+      <a href="mailto:krsatyam7137@gmail.com" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200" aria-label="Email Satyam Kumar">
+        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </a>
+      <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Satyam Kumar on Instagram" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200">
+        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 2h10c2.757 0 5 2.243 5 5v10c0 2.757-2.243 5-5 5H7c-2.757 0-5-2.243-5-5V7c0-2.757 2.243-5 5-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6zm5.5-3a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="student-card max-w-xs mx-auto bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+  <div class="relative w-full h-56 md:h-64 overflow-hidden">
+    <img class="object-cover w-full h-full" src="https://res.cloudinary.com/ddi81vnxw/image/upload/v1765318740/IMG_20250208_183706_500_-_Shivam_Pandey_p7o0w5.webp" alt="Shivam Kr Pandey">
+  </div>
+  <div class="p-4 text-center">
+    <h3 class="text-xl font-semibold text-headingText">Shivam Kr Pandey</h3>
+    <p class="mt-1 text-sm text-gray-500">EE Department</p>
+    <div class="mt-4 flex items-center justify-center gap-3">
+      <a href="mailto:shivampandeyvvv9876@gmail.com" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200" aria-label="Email Shivam Kr Pandey">
+        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/Shivraj_8521/" target="_blank" rel="noopener noreferrer" aria-label="Shivam Kr Pandey on Instagram" class="inline-flex items-center justify-center p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors duration-200">
+        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 2h10c2.757 0 5 2.243 5 5v10c0 2.757-2.243 5-5 5H7c-2.757 0-5-2.243-5-5V7c0-2.757 2.243-5 5-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6zm5.5-3a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<div id="pratik-card" class="student-card max-w-xs mx-auto bg-slate-900 rounded-xl shadow-md overflow-hidden border border-slate-700">
+  <div class="relative w-full h-56 md:h-64 overflow-hidden">
+    <img class="object-cover w-full h-full opacity-90 hover:opacity-100 transition-opacity" src="https://res.cloudinary.com/ddi81vnxw/image/upload/WhatsApp_Image_2025-12-10_at_03.19.33_wp9bby.jpg" alt="Pratik">
+  </div>
+  <div class="p-4 text-center">
+    <!-- Custom Badges -->
+    <div class="flex flex-wrap justify-center gap-2 mb-3">
+      <span class="inline-block px-2 py-1 text-[10px] font-bold uppercase tracking-wider bg-blue-900/40 text-blue-200 rounded border border-blue-500/30 shadow-sm">Co-ordinator</span>
+      <span class="inline-block px-2 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-900/40 text-emerald-300 rounded border border-emerald-500/30 dev-font shadow-sm">&lt;Developer/&gt;</span>
+    </div>
+    
+    <h3 class="text-xl font-bold text-slate-100 dev-font tracking-tight">Pratik</h3>
+    <p class="mt-1 text-sm text-slate-400 dev-font">CSE-IOT Department</p>
+    
+    <div class="mt-4 flex items-center justify-center gap-3">
+      <a href="mailto:devlopwithpratik@gmail.com" class="icon-btn icon-mail inline-flex items-center justify-center p-3 rounded-full bg-slate-800 text-slate-300 hover:text-white transition-all duration-200 border border-slate-600" aria-label="Email Pratik">
+        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v 2z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/kyu_pratik/#" target="_blank" rel="noopener noreferrer" aria-label="Pratik on Instagram" class="icon-btn icon-insta inline-flex items-center justify-center p-3 rounded-full bg-slate-800 text-slate-300 hover:text-white transition-all duration-200 border border-slate-600">
+        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 2h10c2.757 0 5 2.243 5 5v10c0 2.757-2.243 5-5 5H7c-2.757 0-5-2.243-5-5V7c0-2.757 2.243-5 5-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6zm5.5-3a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+          
+             
+
+        </div><!-- end of #student-grid -->
+      </div><!-- end of student section container -->
+    </section>
+
+    <!-- Footer (4-column responsive) -->
+    <footer class="bg-headingText text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Brand & Social -->
+          <div>
+            <h3 class="font-heading text-lg sm:text-xl font-bold">NSS Team GEC Banka</h3>
+            <p class="mt-2 text-sm opacity-90">Empowering students through social service and community development.</p>
+
+          </div>
+          <!-- Quick Links -->
+          <div>
+            <h3 class="font-heading text-lg font-semibold">Quick Links</h3>
+            <ul class="mt-3 space-y-2 text-sm">
+              <li><a href="index.html" class="hover:underline">Home</a></li>
+              <li><a href="objectives.html" class="hover:underline">Objectives</a></li>
+              <li><a href="activities.html" class="hover:underline">Activities</a></li>
+              <li><a href="team.html" class="hover:underline">Team</a></li>
+              <li><a href="join.html" class="hover:underline">Join Us</a></li>
+            </ul>
+          </div>
+          <!-- Contact Info -->
+          <div>
+            <h3 class="font-heading text-lg font-semibold">Contact Info</h3>
+            <ul class="mt-3 space-y-2 text-sm">
+              <li class="flex items-center gap-2"><i class="fas fa-map-marker-alt text-green-300 text-base"></i> <a href="https://maps.app.goo.gl/xe9ih385CyrwhTqU7" class="text-white hover:underline">Government Engineering College Banka, Bihar - 813102</a></li>
+              <li class="flex items-center gap-2"><i class="fas fa-phone fa-flip-horizontal text-green-300 text-base"></i> <a href="tel:+917077109670" class="text-white hover:underline">+91 7077109670</a></li>
+              <li class="flex items-center gap-2"><i class="fas fa-envelope text-green-300 text-base"></i> <a href="mailto:nssgecbanka@gmail.com" class="text-white hover:underline">nssgecbanka@gmail.com</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- Visitor Count Bar -->
+        <div class="mt-6 bg-white/10 rounded-lg px-3 py-2 flex items-center justify-center gap-2 text-xs sm:text-sm">
+          <i class="fas fa-user-friends text-green-300"></i>
+          <span>Total Visitors:</span>
+          <span id="visitor-count" class="font-semibold">...</span>
+        </div>
+        <div class="mt-8 pt-6 border-t border-white/20 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs sm:text-sm opacity-90">
+          <p>© 2025 NSS Team GEC Banka. All rights reserved.</p>
+          <p>Designed & Developed by Pratik</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Mobile menu toggling uses inline onclick on the button; no separate script needed. -->
+    <script>
+      (function() {
+        const cards = document.querySelectorAll('#student-grid .student-card');
+        if (!('IntersectionObserver' in window) || cards.length === 0) return;
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            // Use a high threshold so the card is almost fully on screen
+            if (entry.intersectionRatio >= 0.95) {
+              entry.target.classList.add('in-view');
+            } else {
+              entry.target.classList.remove('in-view');
+            }
+          });
+        }, { root: null, rootMargin: '0px', threshold: [0, 0.25, 0.5, 0.75, 0.95, 1] });
+
+        cards.forEach((el) => observer.observe(el));
+
+        // Recalculate on resize/orientation changes to keep behavior snappy on mobile
+        window.addEventListener('resize', () => {
+          cards.forEach((el) => observer.unobserve(el));
+          cards.forEach((el) => observer.observe(el));
+        });
+      })();
+    </script>
+
+    <script>
+      (function() {
+        const el = document.getElementById('visitor-count');
+        if (!el) return;
+        const STORAGE_COUNT_KEY = 'visitorCount';
+        const STORAGE_SESSION_KEY = 'hasBeenCounted';
+        const wantsReset = new URLSearchParams(location.search).get('resetVisitors') === '1';
+        function loadCounterLib() {
+          return new Promise((resolve, reject) => {
+            if (window.Counter) { resolve(); return; }
+            const s = document.createElement('script');
+            s.src = 'https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js';
+            s.onload = () => resolve();
+            s.onerror = () => reject(new Error('CounterAPI lib load failed'));
+            document.head.appendChild(s);
+          });
+        }
+        const cached = sessionStorage.getItem(STORAGE_COUNT_KEY);
+        if (cached !== null) {
+          const n = Number(cached);
+          if (!Number.isNaN(n) && n >= 0) {
+            el.textContent = n.toLocaleString();
+          }
+        } else {
+          el.textContent = '0';
+        }
+        const isNewSession = sessionStorage.getItem(STORAGE_SESSION_KEY) === null;
+        const ws = window.COUNTER_WORKSPACE;
+        const token = window.COUNTER_TOKEN;
+        const qp = new URLSearchParams(location.search);
+        const qTok = qp.get('counterToken');
+        const qEnd = qp.get('counterEndpoint');
+        const qId = qp.get('counterId');
+        if (qTok) sessionStorage.setItem('COUNTER_API_TOKEN', qTok);
+        if (qEnd) sessionStorage.setItem('COUNTER_API_ENDPOINT', qEnd);
+        if (qId) sessionStorage.setItem('COUNTER_COUNTER_ID', qId);
+        const ALT_TOKEN = sessionStorage.getItem('COUNTER_API_TOKEN') || window.COUNTER_API_TOKEN;
+        const ALT_ENDPOINT = sessionStorage.getItem('COUNTER_API_ENDPOINT') || window.COUNTER_API_ENDPOINT;
+        const ALT_ID = sessionStorage.getItem('COUNTER_COUNTER_ID') || window.COUNTER_COUNTER_ID;
+        const name = 'site-visitors';
+        if (wantsReset) {
+          if (ws && token) {
+            loadCounterLib()
+              .then(() => new Counter({ workspace: ws, accessToken: token }).set(name, 0))
+              .then(() => {
+                sessionStorage.removeItem(STORAGE_COUNT_KEY);
+                sessionStorage.removeItem(STORAGE_SESSION_KEY);
+                const u = new URL(location.href);
+                u.searchParams.delete('resetVisitors');
+                location.replace(u.href);
+              })
+              .catch(() => {});
+            return;
+          } else {
+            loadCounterLib()
+              .then(() => new Counter({ version: 'v1', namespace: 'nss-team-gec-banka' }).set(name, 0))
+              .then(() => {
+                sessionStorage.removeItem(STORAGE_COUNT_KEY);
+                sessionStorage.removeItem(STORAGE_SESSION_KEY);
+                const u = new URL(location.href);
+                u.searchParams.delete('resetVisitors');
+                location.replace(u.href);
+              })
+              .catch(() => {});
+            return;
+          }
+        }
+        if (ALT_TOKEN && ALT_ENDPOINT && ALT_ID) {
+          const endpoint = String(ALT_ENDPOINT).trim().replace(/^`|`$/g, '');
+          const fullUrl = `${endpoint}?id=${encodeURIComponent(ALT_ID)}`;
+          (async () => {
+            try {
+              if (isNewSession) {
+                const res = await fetch(fullUrl, { method: 'GET', headers: { 'Authorization': `Bearer ${ALT_TOKEN}`, 'Content-Type': 'application/json' } });
+                if (!res.ok) throw new Error('api');
+                const data = await res.json();
+                const val = (data && (data.value ?? data.count));
+                const num = Number(val);
+                if (!Number.isNaN(num) && num >= 0) {
+                  el.textContent = num.toLocaleString();
+                  sessionStorage.setItem(STORAGE_COUNT_KEY, String(num));
+                  sessionStorage.setItem(STORAGE_SESSION_KEY, 'true');
+                }
+              } else {
+                if (cached !== null) {
+                  const n = Number(cached);
+                  if (!Number.isNaN(n) && n >= 0) el.textContent = n.toLocaleString();
+                }
+              }
+            } catch {
+              if (cached === null) {
+                el.textContent = '0';
+                if (ALT_TOKEN) {
+                  try {
+                    const img = document.createElement('img');
+                    img.alt = 'Visitor Counter';
+                    img.src = `https://counter_service.com/counter/${ALT_TOKEN}`;
+                    img.style.height = '1em';
+                    img.style.verticalAlign = 'middle';
+                    el.parentNode && el.parentNode.insertBefore(img, el.nextSibling);
+                  } catch {}
+                }
+              }
+            }
+          })();
+          return;
+        }
+        if (ws && token) {
+          loadCounterLib()
+            .then(() => {
+              const client = new Counter({ workspace: ws, accessToken: token });
+              return client.get(name).then(result => ({ client, result }));
+            })
+            .then(({ client, result }) => {
+              const v = Number(result && result.value);
+              if (!Number.isNaN(v) && v >= 0) {
+                el.textContent = v.toLocaleString();
+                sessionStorage.setItem(STORAGE_COUNT_KEY, String(v));
+              }
+              if (isNewSession) {
+                return client.up(name).then(up => {
+                  const u = Number(up && up.value);
+                  if (!Number.isNaN(u) && u >= 0) {
+                    el.textContent = u.toLocaleString();
+                    sessionStorage.setItem(STORAGE_COUNT_KEY, String(u));
+                    sessionStorage.setItem(STORAGE_SESSION_KEY, 'true');
+                  }
+                });
+              }
+            })
+            .catch(() => { if (cached === null) el.textContent = '0'; });
+          return;
+        }
+        const namespace = 'nss-team-gec-banka';
+        const key = 'site-visitors';
+        function fetchWithTimeout(url, ms) {
+          const controller = new AbortController();
+          const id = setTimeout(() => controller.abort(), ms);
+          return fetch(url, { signal: controller.signal })
+            .finally(() => clearTimeout(id));
+        }
+        const upUrl = `https://api.counterapi.dev/v1/${encodeURIComponent(namespace)}/${encodeURIComponent(key)}/up`;
+        const getUrl = `https://api.counterapi.dev/v1/${encodeURIComponent(namespace)}/${encodeURIComponent(key)}/get`;
+        (async () => {
+          try {
+            const resGet = await fetchWithTimeout(getUrl, 6000);
+            const dataGet = await resGet.json();
+            const valueGet = (dataGet && (dataGet.value ?? dataGet.count));
+            const numGet = Number(valueGet);
+            if (!Number.isNaN(numGet) && numGet >= 0) {
+              el.textContent = numGet.toLocaleString();
+              sessionStorage.setItem(STORAGE_COUNT_KEY, String(numGet));
+            }
+            if (isNewSession) {
+              try {
+                const resUp = await fetchWithTimeout(upUrl, 6000);
+                const dataUp = await resUp.json();
+                const valueUp = (dataUp && (dataUp.value ?? dataUp.count));
+                const numUp = Number(valueUp);
+                if (!Number.isNaN(numUp) && numUp >= 0) {
+                  el.textContent = numUp.toLocaleString();
+                  sessionStorage.setItem(STORAGE_COUNT_KEY, String(numUp));
+                  sessionStorage.setItem(STORAGE_SESSION_KEY, 'true');
+                }
+              } catch {}
+            }
+          } catch {
+            if (cached === null) el.textContent = '—';
+          }
+        })();
+      })();
+    </script>
+
+    <!-- Scroll Navigation Arrows -->
+    <div class="fixed bottom-6 right-6 flex flex-col space-y-2 z-50">
+      <!-- Scroll to Top Arrow -->
+      <button id="scrollToTop" class="bg-nssBlue hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition-all duration-300 opacity-80 hover:opacity-100 transform hover:scale-110" title="Scroll to Top">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+        </svg>
+      </button>
+      
+      <!-- Scroll to Bottom Arrow -->
+      <button id="scrollToBottom" class="bg-nssBlue hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition-all duration-300 opacity-80 hover:opacity-100 transform hover:scale-110" title="Scroll to Bottom">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </button>
+    </div>
+
+    <script>
+    // Scroll Navigation Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const scrollToTopBtn = document.getElementById('scrollToTop');
+      const scrollToBottomBtn = document.getElementById('scrollToBottom');
+      
+      // Scroll to top
+      scrollToTopBtn.addEventListener('click', function() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+      
+      // Scroll to bottom
+      scrollToBottomBtn.addEventListener('click', function() {
+        window.scrollTo({
+          top: document.body.scrollHeight,
+          behavior: 'smooth'
+        });
+      });
+      
+      // Show/hide arrows based on scroll position
+      function updateArrowVisibility() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollHeight = document.body.scrollHeight;
+        const clientHeight = window.innerHeight;
+        
+        // Show scroll to top if not at top
+        if (scrollTop > 100) {
+          scrollToTopBtn.style.display = 'block';
+        } else {
+          scrollToTopBtn.style.display = 'none';
+        }
+        
+        // Show scroll to bottom if not at bottom
+        if (scrollTop + clientHeight < scrollHeight - 100) {
+          scrollToBottomBtn.style.display = 'block';
+        } else {
+          scrollToBottomBtn.style.display = 'none';
+        }
+      }
+      
+      // Initial check
+      updateArrowVisibility();
+      
+      // Update on scroll
+      window.addEventListener('scroll', updateArrowVisibility);
+    });
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NSS GEC Banka</title>
+    <!-- Google Fonts: Poppins (headings) and Inter (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              accent: '#E0F7FA',
+              nssBlue: '#0288D1',
+              bodyText: '#212529',
+              headingText: '#0D47A1',
+            },
+          },
+        },
+      }
+    </script>
+
+    <script>
+      (function(){
+        const o = console.error;
+        console.error = function(){
+          try{
+            const s = Array.from(arguments).map(a => (typeof a === 'string' ? a : (a && a.message) || '')).join(' ');
+            if (s.includes('google.firestore.v1.Firestore/Listen/channel') && s.includes('net::ERR_ABORTED')) return;
+            if (s.includes('google.firestore.v1.Firestore/Write/channel') && s.includes('net::ERR_ABORTED')) return;
+            if (s.includes('identitytoolkit.googleapis.com') && s.includes('net::ERR_ABORTED')) return;
+          }catch{}
+          return o.apply(console, arguments);
+        };
+      })();
+    </script>
+
+    <style>
+      :root { color-scheme: light; }
+      body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+      .font-heading { font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+      /* Oath section river background and marquee accents */
+      .oath-section { position: relative; background: linear-gradient(180deg, #E0F7FA 0%, #CFEAF8 65%, #E0F7FA 100%); }
+      .oath-section::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0.85; background:
+        linear-gradient(90deg, rgba(13,71,161,0.12) 25%, rgba(13,71,161,0.18) 50%, rgba(13,71,161,0.12) 75%);
+        background-size: 200% 100%;
+        animation: riverFlow 14s linear infinite;
+      }
+      @keyframes riverFlow {
+        0% { background-position: 0 0; }
+        100% { background-position: 200% 0; }
+      }
+      /* Shimmer accent bars (original pattern) */
+      .shimmer-bar { position: absolute; left: 0; right: 0; height: 10px; pointer-events: none; z-index: 2; background:
+        linear-gradient(90deg, #6D28D9 0%, #F59E0B 50%, #DB2777 100%);
+        background-size: 200% 100%;
+        animation: shimmer 3.5s linear infinite;
+        opacity: 0.9;
+      }
+      .shimmer-top { top: 0; }
+      .shimmer-bottom { bottom: 0; }
+      @keyframes shimmer { 0% { background-position: 0% 0; } 100% { background-position: 100% 0; } }
+      /* Dashed blue marquee bars (seamless, thinner, lighter) */
+      .dash-bar { position: absolute; left: 0; right: 0; height: 12px; pointer-events: none; z-index: 2;
+        background-image: repeating-linear-gradient(90deg, rgba(13,71,161,0.75) 0 12px, transparent 12px 36px);
+        background-position: 0 50%;
+        animation: dashFlow 1.5s linear infinite;
+      }
+      .dash-top { top: 0; }
+      .dash-bottom { bottom: 0; }
+      @keyframes dashFlow { from { background-position: 0 50%; } to { background-position: -36px 50%; } }
+    </style>
+    <script src="scroll-arrow.js"></script>
+  </head>
+  <body class="bg-white text-bodyText">
+    <!-- Header & Navigation (Sticky, pill-style) -->
+    <header class="sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+        <!-- Header pill: widen horizontal padding -->
+        <div class="bg-white/95 backdrop-blur border border-gray-200 rounded-full shadow-md px-6 sm:px-8 py-3 flex items-center justify-between">
+          <!-- Brand -->
+          <a href="index.html" class="flex items-center gap-3">
+            <svg class="w-9 h-9 sm:w-10 sm:h-10 select-none" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NSS Logo">
+              <image href="https://res.cloudinary.com/ddi81vnxw/image/upload/logo_dfqvjk.jpg" width="64" height="64" preserveAspectRatio="xMidYMid meet" draggable="false" style="-webkit-user-drag: none; user-select: none;" />
+            </svg>
+            <span class="font-heading text-lg sm:text-xl md:text-2xl font-bold text-headingText">NSS GEC Banka</span>
+          </a>
+            <!-- Desktop Nav with icons -->
+            <nav class="hidden md:flex items-center gap-7 sm:gap-8">
+              <a href="index.html" class="flex items-center gap-3 text-sm sm:text-base md:text-lg font-semibold uppercase tracking-wide text-headingText hover:text-nssBlue">
+                <i class="fas fa-home w-5 h-5"></i>
+                <span>Home</span>
+              </a>
+              <a href="objectives.html" class="flex items-center gap-3 text-sm sm:text-base md:text-lg font-semibold uppercase tracking-wide text-headingText hover:text-nssBlue">
+                <i class="fas fa-bullseye w-5 h-5"></i>
+                <span>Objectives</span>
+              </a>
+              <a href="activities.html" class="flex items-center gap-3 text-sm sm:text-base md:text-lg font-semibold uppercase tracking-wide text-headingText hover:text-nssBlue">
+                <i class="fas fa-tasks w-5 h-5"></i>
+                <span>Activities</span>
+              </a>
+              <a href="team.html" class="flex items-center gap-3 text-sm sm:text-base md:text-lg font-semibold uppercase tracking-wide text-headingText hover:text-nssBlue">
+                <i class="fas fa-users w-5 h-5"></i>
+                <span>Team</span>
+              </a>
+            
+            </nav>
+            <!-- Mobile toggle -->
+            <button id="mobile-menu-button" aria-label="Toggle navigation" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="md:hidden inline-flex items-center justify-center p-2 rounded-full bg-white text-headingText hover:text-nssBlue border border-gray-200">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+          </div>
+          <!-- Mobile Menu -->
+          <div id="mobile-menu" class="md:hidden hidden mt-2 bg-white/95 backdrop-blur rounded-2xl shadow border border-gray-200">
+            <div class="px-4 py-3 space-y-2">
+              <a href="index.html" class="flex items-center gap-3 py-2 text-base font-semibold text-headingText hover:text-nssBlue">
+                <i class="fas fa-home w-4 h-4"></i>
+                <span>Home</span>
+              </a>
+              <a href="objectives.html" class="flex items-center gap-3 py-2 text-base font-semibold text-headingText hover:text-nssBlue">
+                <i class="fas fa-bullseye w-5 h-5"></i>
+                <span>Objectives</span>
+              </a>
+              <a href="activities.html" class="flex items-center gap-3 py-2 text-base font-semibold text-headingText hover:text-nssBlue">
+                <i class="fas fa-tasks w-5 h-5"></i>
+                <span>Activities</span>
+              </a>
+              <a href="team.html" class="flex items-center gap-3 py-2 text-base font-semibold text-headingText hover:text-nssBlue">
+                <i class="fas fa-users w-5 h-5"></i>
+                <span>Team</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- Duplicate mobile menu removed to avoid extra text and duplicate IDs -->
+      </div>
+    </header>
+
+    <!-- Hero Section with 4-image auto slider -->
+    <section class="relative">
+      <div class="relative h-[60vh] sm:h-[70vh] md:h-[75vh] lg:h-[72vh] overflow-hidden max-w-full lg:max-w-[1920px] mx-auto">
+        <!-- Slides -->
+        <div class="absolute inset-0">
+          <picture>
+            <source media="(max-width: 639px)" srcset="https://res.cloudinary.com/ddi81vnxw/image/upload/SW_Mobile_Hero_ro9kev.png">
+            <img src="https://res.cloudinary.com/ddi81vnxw/image/upload/SP_Banner_1_je7qor.png" alt="NSS Hero Banner" class="absolute inset-0 w-full h-full object-contain bg-gray-100 opacity-100" />
+          </picture>
+        </div>
+        <!-- Gradient overlay -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/40"></div>
+        <!-- Content -->
+        <div class="relative z-10 h-full flex items-center justify-center text-center px-4"></div>
+      </div>
+    </section>
+
+    <!-- Join CTA Section -->
+    <section class="py-12 sm:py-16 bg-accent/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-headingText">Want to Join NSS?</h2>
+        <div class="mt-2 flex justify-center"><span class="inline-block h-1 w-24 bg-nssBlue rounded-full"></span></div>
+        <p class="mt-3 text-sm sm:text-base text-bodyText">Join NSS to develop leadership, teamwork, and contribute to society.</p>
+        <a href="join.html" class="mt-6 inline-block rounded-full bg-nssBlue text-white px-6 py-3 text-sm sm:text-base font-semibold shadow hover:bg-[#0277BD] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-nssBlue">Want To Join Us</a>
+      </div>
+    </section>
+
+    <!-- Oath CTA Section -->
+    <section class="py-12 sm:py-16 oath-section">
+      <div class="dash-bar dash-top"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-headingText">Pledge to Serve</h2>
+        <p class="mt-2 text-sm sm:text-base font-bold text-black">Commit to community service and make a meaningful impact.</p>
+        <a id="take-oath-btn" href="oath-form.html" class="mt-6 inline-block rounded-full bg-nssBlue text-white px-6 py-3 text-sm sm:text-base font-semibold shadow hover:bg-[#0277BD] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-nssBlue" aria-label="Take Your Oath Today">Take Your Oath Today</a>
+      </div>
+      <div class="dash-bar dash-bottom"></div>
+    </section>
+
+  <script>
+  (function() {
+    const btn = document.getElementById('take-oath-btn');
+    const slides = document.querySelectorAll('.hero-slide');
+    let i = 0;
+    if (slides.length <= 1) return; // disable slider when only one image is present
+    setInterval(() => {
+      slides[i].classList.add('opacity-0');
+      slides[i].classList.remove('opacity-100');
+      i = (i + 1) % slides.length;
+      slides[i].classList.remove('opacity-0');
+      slides[i].classList.add('opacity-100');
+    }, 3000); // change every 3 seconds
+  })();
+  </script>
+  <script type="module">
+    import { db, doc, getDoc } from './firebase-init.js';
+    const btn = document.getElementById('take-oath-btn');
+    async function fetchOn() {
+      try {
+        const snap = await getDoc(doc(db, 'config', 'app'));
+        return snap.exists() ? !!snap.data().certFlowEnabled : true;
+      } catch {
+        return true;
+      }
+    }
+    async function applyFromCloud() {
+      if (!btn) return;
+      const on = await fetchOn();
+      const target = on ? 'oath-form.html' : 'mock.html';
+      btn.setAttribute('data-target', target);
+      btn.href = target;
+    }
+    if (btn) {
+      btn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const on = await fetchOn();
+        window.location.href = on ? 'oath-form.html' : 'mock.html';
+      });
+    }
+    applyFromCloud();
+    setInterval(applyFromCloud, 10000);
+  </script>
+    <section class="py-12 sm:py-16 bg-accent/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10 md:mb-12">
+          <h2 class="font-heading text-3xl sm:text-4xl font-bold text-headingText">About NSS at GEC Banka</h2>
+          <div class="mt-2 flex justify-center"><span class="inline-block h-1 w-24 bg-nssBlue rounded-full"></span></div>
+        </div>
+        <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+          <div class="w-full md:w-3/5 lg:w-1/2 order-1 text-left">
+            <h3 class="font-heading text-2xl lg:text-3xl font-bold text-headingText">Our Mission</h3>
+            <p class="mt-2 text-sm lg:text-base text-bodyText leading-relaxed">The National Service Scheme (NSS) at Government Engineering College Banka is dedicated to developing the personalities of its students through community service. We aim to instill a deep sense of social responsibility while providing unbiased service to the community</p>
+            <h3 class="mt-6 font-heading text-2xl lg:text-3xl font-bold text-headingText">Our Vision</h3>
+            <p class="mt-2 text-sm lg:text-base text-bodyText leading-relaxed">We envision a society where young minds are actively engaged in nation-building through social service, environmental conservation, and community development.</p>
+          </div>
+          <div class="w-full md:w-2/5 lg:w-1/2 order-2 flex justify-center md:justify-end">
+            <div class="bg-white p-4 sm:p-6 rounded-xl shadow-lg w-full max-w-sm">
+              <img src="https://res.cloudinary.com/ddi81vnxw/image/upload/logo_dfqvjk.jpg" alt="National Service Scheme (NSS) Logo for GEC Banka" class="w-full h-auto rounded-md object-contain select-none">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Our Collaborations -->
+    <section class="py-10 sm:py-12 bg-accent/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-6 md:mb-8">
+          <h2 class="font-heading text-2xl sm:text-3xl font-bold text-headingText">Our Collaborations</h2>
+          <div class="mt-2 flex justify-center"><span class="inline-block h-1 w-24 bg-nssBlue rounded-full"></span></div>
+        </div>
+
+        <!-- Marquee Styles (scoped to this page) -->
+        <style>
+          @keyframes collab-marquee {
+            from { transform: translate3d(0, 0, 0); }
+            to { transform: translate3d(-100%, 0, 0); }
+          }
+          /* Move tracks together and never pause (duration scaled to track count) */
+          .collab-marquee { display: inline-flex; animation: collab-marquee 30s linear infinite; will-change: transform; }
+          /* Prevent shrinking and overlapping, keep spacing consistent */
+          .collab-track { display: inline-flex; align-items: center; gap: 2.5rem; flex: 0 0 auto; padding: 2rem 0; }
+          /* Enforce spacing even if flex gap is unsupported */
+          .collab-track img { margin: 0 1rem; flex: 0 0 auto; }
+          /* Mobile: duration scaled to keep perceived speed similar */
+          @media (max-width: 640px) {
+            .collab-marquee { animation-duration: 21s; }
+            .collab-track { gap: 2rem; padding: 1.5rem 0; }
+          }
+        </style>
+
+        <!-- Marquee container -->
+        <div class="relative overflow-hidden rounded-xl bg-white border border-gray-200">
+          <div class="collab-marquee">
+            <!-- Track 1 -->
+            <div class="collab-track">
+              <img src="https://res.cloudinary.com/ddi81vnxw/image/upload/logo_dfqvjk.jpg" alt="NSS" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://indiadesignsystem.bombaydc.com/assets/india-designs/display/Swacch-Bharat/black.svg" alt="Swachh Bharat Mission" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://inductusgroup.com/wp-content/uploads/2020/09/BIHAR-STATE-AIDS-CONTROL-SOCIETY.jpg" alt="Red Ribbon Club" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://ircsstoragedev.blob.core.windows.net/wordpresswebsite/2025/05/INDIAN-RED-CROSS-SOCIETY-BL-LOGO.png" alt="Indian Red Cross Society" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://indiaspaceweek.org/static/images/logo.png" alt="India Space Week" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://pbs.twimg.com/profile_images/1461310261654999047/dGr6PFPa_400x400.jpg" alt="Jal Jeevan Hariyali" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://res.cloudinary.com/ddi81vnxw/image/upload/Save_Earth_yuguw7.png" alt="Save Tree" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+            </div>
+            <!-- Track 2 (duplicate for seamless loop) -->
+            <div class="collab-track" aria-hidden="true">
+              <img src="https://res.cloudinary.com/ddi81vnxw/image/upload/logo_dfqvjk.jpg" alt="NSS" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://indiadesignsystem.bombaydc.com/assets/india-designs/display/Swacch-Bharat/black.svg" alt="Swachh Bharat Mission" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://inductusgroup.com/wp-content/uploads/2020/09/BIHAR-STATE-AIDS-CONTROL-SOCIETY.jpg" alt="Red Ribbon Club" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://ircsstoragedev.blob.core.windows.net/wordpresswebsite/2025/05/INDIAN-RED-CROSS-SOCIETY-BL-LOGO.png" alt="Indian Red Cross Society" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://indiaspaceweek.org/static/images/logo.png" alt="India Space Week" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://pbs.twimg.com/profile_images/1461310261654999047/dGr6PFPa_400x400.jpg" alt="Jal Jeevan Hariyali" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://res.cloudinary.com/ddi81vnxw/image/upload/Save_Earth_yuguw7.png" alt="Save Tree" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+            </div>
+            <!-- Track 3 (additional duplicate for smoothness) -->
+            <div class="collab-track" aria-hidden="true">
+              <img src="https://res.cloudinary.com/ddi81vnxw/image/upload/logo_dfqvjk.jpg" alt="NSS" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://indiadesignsystem.bombaydc.com/assets/india-designs/display/Swacch-Bharat/black.svg" alt="Swachh Bharat Mission" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://inductusgroup.com/wp-content/uploads/2020/09/BIHAR-STATE-AIDS-CONTROL-SOCIETY.jpg" alt="Red Ribbon Club" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://ircsstoragedev.blob.core.windows.net/wordpresswebsite/2025/05/INDIAN-RED-CROSS-SOCIETY-BL-LOGO.png" alt="Indian Red Cross Society" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://indiaspaceweek.org/static/images/logo.png" alt="India Space Week" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://pbs.twimg.com/profile_images/1461310261654999047/dGr6PFPa_400x400.jpg" alt="Jal Jeevan Hariyali" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://res.cloudinary.com/ddi81vnxw/image/upload/Save_Earth_yuguw7.png" alt="Save Tree" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+            </div>
+            <!-- Track 4 -->
+            <div class="collab-track" aria-hidden="true">
+              <img src="https://res.cloudinary.com/ddi81vnxw/image/upload/logo_dfqvjk.jpg" alt="NSS" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://indiadesignsystem.bombaydc.com/assets/india-designs/display/Swacch-Bharat/black.svg" alt="Swachh Bharat Mission" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://inductusgroup.com/wp-content/uploads/2020/09/BIHAR-STATE-AIDS-CONTROL-SOCIETY.jpg" alt="Red Ribbon Club" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://ircsstoragedev.blob.core.windows.net/wordpresswebsite/2025/05/INDIAN-RED-CROSS-SOCIETY-BL-LOGO.png" alt="Indian Red Cross Society" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://indiaspaceweek.org/static/images/logo.png" alt="India Space Week" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://pbs.twimg.com/profile_images/1461310261654999047/dGr6PFPa_400x400.jpg" alt="Jal Jeevan Hariyali" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://res.cloudinary.com/ddi81vnxw/image/upload/Save_Earth_yuguw7.png" alt="Save Tree" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+            </div>
+            <!-- Track 5 -->
+            <div class="collab-track" aria-hidden="true">
+              <img src="https://res.cloudinary.com/ddi81vnxw/image/upload/logo_dfqvjk.jpg" alt="NSS" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://indiadesignsystem.bombaydc.com/assets/india-designs/display/Swacch-Bharat/black.svg" alt="Swachh Bharat Mission" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://inductusgroup.com/wp-content/uploads/2020/09/BIHAR-STATE-AIDS-CONTROL-SOCIETY.jpg" alt="Red Ribbon Club" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://ircsstoragedev.blob.core.windows.net/wordpresswebsite/2025/05/INDIAN-RED-CROSS-SOCIETY-BL-LOGO.png" alt="Indian Red Cross Society" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://indiaspaceweek.org/static/images/logo.png" alt="India Space Week" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://pbs.twimg.com/profile_images/1461310261654999047/dGr6PFPa_400x400.jpg" alt="Jal Jeevan Hariyali" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://res.cloudinary.com/ddi81vnxw/image/upload/Save_Earth_yuguw7.png" alt="Save Tree" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+            </div>
+            <!-- Track 6 -->
+            <div class="collab-track" aria-hidden="true">
+              <img src="https://res.cloudinary.com/ddi81vnxw/image/upload/logo_dfqvjk.jpg" alt="NSS" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://indiadesignsystem.bombaydc.com/assets/india-designs/display/Swacch-Bharat/black.svg" alt="Swachh Bharat Mission" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://inductusgroup.com/wp-content/uploads/2020/09/BIHAR-STATE-AIDS-CONTROL-SOCIETY.jpg" alt="Red Ribbon Club" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://ircsstoragedev.blob.core.windows.net/wordpresswebsite/2025/05/INDIAN-RED-CROSS-SOCIETY-BL-LOGO.png" alt="Indian Red Cross Society" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://indiaspaceweek.org/static/images/logo.png" alt="India Space Week" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://pbs.twimg.com/profile_images/1461310261654999047/dGr6PFPa_400x400.jpg" alt="Jal Jeevan Hariyali" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+              <img src="https://res.cloudinary.com/ddi81vnxw/image/upload/Save_Earth_yuguw7.png" alt="Save Tree" class="h-12 sm:h-16 md:h-20 lg:h-24 object-contain" loading="lazy" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Replace above placeholders with your collaboration logos as needed -->
+      </div>
+    </section>
+
+    <!-- Recent Events Preview -->
+    <section class="py-12 sm:py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-end justify-between">
+          <h2 class="font-heading text-2xl sm:text-3xl font-bold text-headingText">Recent Activities</h2>
+          <a href="activities.html" class="hidden sm:inline-block rounded-lg bg-nssBlue text-white px-4 py-2 text-sm font-semibold shadow hover:bg-[#0277BD]">View All Activities</a>
+        </div>
+        <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <!-- Event Card 1 -->
+          <article class="bg-white rounded-xl shadow hover:shadow-md transition overflow-hidden">
+            <img src="https://res.cloudinary.com/ddi81vnxw/image/upload/WhatsApp_Image_2025-10-26_at_4.40.22_PM_d0oxt1.jpg" alt="AIDS & TB Awareness Programme" class="w-full h-44 object-cover" />
+            <div class="p-4">
+              <h3 class="font-heading text-lg font-semibold text-headingText">AIDS & TB Awareness Programme</h3>
+              <p class="mt-1 text-sm text-gray-600">Oct 12, 2025</p>
+              <p class="mt-2 text-sm text-bodyText">Students joined the AIDS & TB Awareness Programme to Raise Awareness about the Importance of Preventing AIDS & TB.</p>
+            </div>
+          </article>
+          <!-- Event Card 2 -->
+          <article class="bg-white rounded-xl shadow hover:shadow-md transition overflow-hidden">
+            <img src="https://res.cloudinary.com/ddi81vnxw/image/upload/DSC06210_optimized_1500_atkhc7.jpg" alt="Tree Plantation Programme" class="w-full h-44 object-cover" />
+            <div class="p-4">
+              <h3 class="font-heading text-lg font-semibold text-headingText">Tree Plantation Programme</h3>
+              <p class="mt-1 text-sm text-gray-600">Aug 07, 2025</p>
+              <p class="mt-2 text-sm text-bodyText">A successful Tree Plantation Programme organized Under Review of NSS Team, encouraging students to contribute to environmental conservation and sustainability.</p>
+            </div>
+          </article>
+          <!-- Event Card 3 -->
+          <article class="bg-white rounded-xl shadow hover:shadow-md transition overflow-hidden">
+            <img src="https://res.cloudinary.com/ddi81vnxw/image/upload/Cleaness_optimized_1500_efkali.jpg" alt="Cleanliness Drive" class="w-full h-44 object-cover" />
+            <div class="p-4">
+              <h3 class="font-heading text-lg font-semibold text-headingText">Cleanliness Drive</h3>
+              <p class="mt-1 text-sm text-gray-600">Aug 03, 2025</p>
+              <p class="mt-2 text-sm text-bodyText">Volunteers and Students carried out a campus-wide cleanliness initiative to promote hygiene awareness and maintain a clean environment.</p>
+            </div>
+          </article>
+        </div>
+        <div class="sm:hidden mt-6 flex justify-center">
+          <a href="activities.html" class="inline-block rounded-lg bg-nssBlue text-white px-4 py-2 text-sm font-semibold shadow hover:bg-[#0277BD]">View All Activities</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Meet the Team Preview -->
+    <section class="py-12 sm:py-16 bg-accent/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-end justify-between">
+          <h2 class="font-heading text-2xl sm:text-3xl font-bold text-headingText">Meet the Team</h2>
+          <a href="team.html" class="hidden sm:inline-block rounded-lg bg-nssBlue text-white px-4 py-2 text-sm font-semibold shadow hover:bg-[#0277BD]">See Full Team</a>
+        </div>
+        <div class="mt-6 grid gap-6 sm:grid-cols-2 items-stretch auto-rows-fr">
+          <!-- Programme Coordinator Card (student-card dimensions) -->
+          <div class="max-w-xs mx-auto bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+            <div class="relative w-full h-56 md:h-64 overflow-hidden">
+              <img class="object-cover w-full h-full" src="https://placehold.co/400x450/E0E7FF/000000?text=Coordinator" alt="Programme Coordinator">
+            </div>
+            <div class="p-4 text-center">
+              <span class="inline-flex items-center px-3 py-1.5 text-xs font-semibold uppercase tracking-wide bg-accent text-headingText rounded-full">Programme Coordinator</span>
+              <h3 class="mt-2 text-xl font-semibold text-headingText">Prof. Rajiv Ranjan</h3>
+              <p class="mt-1 text-sm text-gray-500">Faculty, Government Engineering College Banka</p>
+            </div>
+          </div>
+          <!-- Student Co-ordinator Card (student-card dimensions) -->
+          <div class="max-w-xs mx-auto bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+            <div class="relative w-full h-56 md:h-64 overflow-hidden">
+              <img class="object-cover w-full h-full" src="https://res.cloudinary.com/ddi81vnxw/image/upload/Ashish-Kumar_ysz79c.jpg" alt="Student Co-ordinator">
+            </div>
+            <div class="p-4 text-center">
+              <span class="inline-flex items-center px-3 py-1.5 text-xs font-semibold uppercase tracking-wide bg-accent text-headingText rounded-full">Student Co-ordinator</span>
+              <h3 class="mt-2 text-xl font-semibold text-headingText">Ashish Kumar</h3>
+              <p class="mt-1 text-sm text-gray-500">ECE Department</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-6 sm:hidden flex justify-center">
+          <a href="team.html" class="inline-block rounded-lg bg-nssBlue text-white px-5 py-2.5 text-sm font-semibold shadow hover:bg-[#0277BD]">See Full Team</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section (merged from contact page) -->
+    <section id="contact" class="py-12 sm:py-16 bg-accent/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-8">
+        <!-- Left: Contact Info -->
+        <div>
+          <h2 class="font-heading text-2xl sm:text-3xl font-bold text-headingText">Get in Touch</h2>
+          <p class="mt-3 max-w-3xl text-sm sm:text-base">Reach out for collaboration, volunteering, or any queries related to the NSS Team at GEC Banka.</p>
+          <div class="mt-6 space-y-2">
+            <p class="text-sm sm:text-base">Government Engineering College Banka</p>
+            <p class="text-sm sm:text-base">Email: <a href="mailto:nssgecbanka@gmail.com" class="text-nssBlue hover:underline">nssgecbanka@gmail.com</a></p>
+          </div>
+        </div>
+        <!-- Right: Map Placeholder -->
+       <div>
+<div class="rounded-xl overflow-hidden shadow bg-white">
+<iframe
+src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3621.2365080693135!2d86.90966202522243!3d24.821584277954642!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f0ff1b167ed5fd%3A0xa254b19936d0b40b!2sGovernment%20Engineering%20College%2C%20Banka!5e0!3m2!1sen!2sin!4v1761406454612!5m2!1sen!2sin"
+class="w-full h-64 sm:h-80"
+allowfullscreen=""
+loading="lazy"
+referrerpolicy="no-referrer-when-downgrade">
+</iframe>
+</div>
+<div class="mt-2 text-right">
+  <a href="https://maps.app.goo.gl/xe9ih385CyrwhTqU7" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm text-nssBlue hover:underline">
+    View on Google Maps <i class="fas fa-external-link-alt ml-1"></i>
+  </a>
+</div>
+</div>
+    </section>
+
+    <!-- Footer (4-column responsive) -->
+    <footer class="bg-headingText text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Brand & Social -->
+          <div>
+            <h3 class="font-heading text-lg sm:text-xl font-bold">NSS Team GEC Banka</h3>
+            <p class="mt-2 text-sm opacity-90">Empowering students through Social Service and Community Development.</p>
+            
+          </div>
+          <!-- Quick Links -->
+          <div>
+            <h3 class="font-heading text-lg font-semibold">Quick Links</h3>
+            <ul class="mt-3 space-y-2 text-sm">
+              <li><a href="index.html" class="hover:underline">Home</a></li>
+              <li><a href="objectives.html" class="hover:underline">Objectives</a></li>
+              <li><a href="activities.html" class="hover:underline">Activities</a></li>
+              <li><a href="team.html" class="hover:underline">Team</a></li>
+              <li><a href="join.html" class="hover:underline">Join Us</a></li>
+              <li><a href="admin.html" class="hover:underline">Admin</a></li>
+            </ul>
+          </div>
+          <!-- Contact Info -->
+          <div>
+            <h3 class="font-heading text-lg font-semibold">Contact Info</h3>
+            <ul class="mt-3 space-y-2 text-sm">
+              <li class="flex items-center gap-2"><i class="fas fa-map-marker-alt text-green-300 text-base"></i> <a href="https://maps.app.goo.gl/xe9ih385CyrwhTqU7" class="text-white hover:underline">Government Engineering College Banka, Bihar - 813102</a></li>
+              <li class="flex items-center gap-2"><i class="fas fa-phone fa-flip-horizontal text-green-300 text-base"></i> <a href="tel:+917077109670" class="text-white hover:underline">+91 7077109670</a></li>
+              <li class="flex items-center gap-2"><i class="fas fa-envelope text-green-300 text-base"></i> <a href="mailto:nssgecbanka@gmail.com" class="text-white hover:underline">nssgecbanka@gmail.com</a></li>
+            </ul>
+          </div>
+          <!-- Newsletter removed -->
+        </div>
+        <!-- Visitor Count Bar -->
+        <div class="mt-6 bg-white/10 rounded-lg px-3 py-2 flex items-center justify-center gap-2 text-xs sm:text-sm">
+          <i class="fas fa-user-friends text-green-300"></i>
+          <span>Total Visitors:</span>
+          <span id="visitor-count" class="font-semibold">...</span>
+        </div>
+        <div class="mt-8 pt-6 border-t border-white/20 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs sm:text-sm opacity-90">
+          <p>© 2025 NSS Team GEC Banka. All rights reserved.</p>
+          <p>Designed & Developed by Pratik</p>
+        </div>
+      </div>
+    </footer>
+
+  <script>
+  (function() {
+    const el = document.getElementById('visitor-count');
+    if (!el) return;
+    const STORAGE_COUNT_KEY = 'visitorCount';
+    const STORAGE_SESSION_KEY = 'hasBeenCounted';
+    const wantsReset = new URLSearchParams(location.search).get('resetVisitors') === '1';
+    function loadCounterLib() {
+      return new Promise((resolve, reject) => {
+        if (window.Counter) { resolve(); return; }
+        const s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js';
+        s.onload = () => resolve();
+        s.onerror = () => reject(new Error('CounterAPI lib load failed'));
+        document.head.appendChild(s);
+      });
+    }
+    const cached = sessionStorage.getItem(STORAGE_COUNT_KEY);
+    if (cached !== null) {
+      const n = Number(cached);
+      if (!Number.isNaN(n) && n >= 0) {
+        el.textContent = n.toLocaleString();
+      }
+    } else {
+      el.textContent = '0';
+    }
+    const isNewSession = sessionStorage.getItem(STORAGE_SESSION_KEY) === null;
+    const ws = window.COUNTER_WORKSPACE;
+    const token = window.COUNTER_TOKEN;
+    const qp = new URLSearchParams(location.search);
+    const qTok = qp.get('counterToken');
+    const qEnd = qp.get('counterEndpoint');
+    const qId = qp.get('counterId');
+    if (qTok) sessionStorage.setItem('COUNTER_API_TOKEN', qTok);
+    if (qEnd) sessionStorage.setItem('COUNTER_API_ENDPOINT', qEnd);
+    if (qId) sessionStorage.setItem('COUNTER_COUNTER_ID', qId);
+    const ALT_TOKEN = sessionStorage.getItem('COUNTER_API_TOKEN') || window.COUNTER_API_TOKEN;
+    const ALT_ENDPOINT = sessionStorage.getItem('COUNTER_API_ENDPOINT') || window.COUNTER_API_ENDPOINT;
+    const ALT_ID = sessionStorage.getItem('COUNTER_COUNTER_ID') || window.COUNTER_COUNTER_ID;
+    const name = 'site-visitors';
+    if (wantsReset) {
+      if (ws && token) {
+        loadCounterLib()
+          .then(() => new Counter({ workspace: ws, accessToken: token }).set(name, 0))
+          .then(() => {
+            sessionStorage.removeItem(STORAGE_COUNT_KEY);
+            sessionStorage.removeItem(STORAGE_SESSION_KEY);
+            const u = new URL(location.href);
+            u.searchParams.delete('resetVisitors');
+            location.replace(u.href);
+          })
+          .catch(() => {});
+        return;
+      } else {
+        loadCounterLib()
+          .then(() => new Counter({ version: 'v1', namespace: 'nss-team-gec-banka' }).set(name, 0))
+          .then(() => {
+            sessionStorage.removeItem(STORAGE_COUNT_KEY);
+            sessionStorage.removeItem(STORAGE_SESSION_KEY);
+            const u = new URL(location.href);
+            u.searchParams.delete('resetVisitors');
+            location.replace(u.href);
+          })
+          .catch(() => {});
+        return;
+      }
+    }
+    if (ALT_TOKEN && ALT_ENDPOINT && ALT_ID) {
+      const endpoint = String(ALT_ENDPOINT).trim().replace(/^`|`$/g, '');
+      const fullUrl = `${endpoint}?id=${encodeURIComponent(ALT_ID)}`;
+      (async () => {
+        try {
+          if (isNewSession) {
+            const res = await fetch(fullUrl, { method: 'GET', headers: { 'Authorization': `Bearer ${ALT_TOKEN}`, 'Content-Type': 'application/json' } });
+            if (!res.ok) throw new Error('api');
+            const data = await res.json();
+            const val = (data && (data.value ?? data.count));
+            const num = Number(val);
+            if (!Number.isNaN(num) && num >= 0) {
+              el.textContent = num.toLocaleString();
+              sessionStorage.setItem(STORAGE_COUNT_KEY, String(num));
+              sessionStorage.setItem(STORAGE_SESSION_KEY, 'true');
+            }
+          } else {
+            if (cached !== null) {
+              const n = Number(cached);
+              if (!Number.isNaN(n) && n >= 0) el.textContent = n.toLocaleString();
+            }
+          }
+        } catch {
+          if (cached === null) {
+            el.textContent = '0';
+            if (ALT_TOKEN) {
+              try {
+                const img = document.createElement('img');
+                img.alt = 'Visitor Counter';
+                img.src = `https://counter_service.com/counter/${ALT_TOKEN}`;
+                img.style.height = '1em';
+                img.style.verticalAlign = 'middle';
+                el.parentNode && el.parentNode.insertBefore(img, el.nextSibling);
+              } catch {}
+            }
+          }
+        }
+      })();
+      return;
+    }
+    if (ws && token) {
+      loadCounterLib()
+        .then(() => {
+          const client = new Counter({ workspace: ws, accessToken: token });
+          return client.get(name).then(result => ({ client, result }));
+        })
+        .then(({ client, result }) => {
+          const v = Number(result && result.value);
+          if (!Number.isNaN(v) && v >= 0) {
+            el.textContent = v.toLocaleString();
+            sessionStorage.setItem(STORAGE_COUNT_KEY, String(v));
+          }
+          if (isNewSession) {
+            return client.up(name).then(up => {
+              const u = Number(up && up.value);
+              if (!Number.isNaN(u) && u >= 0) {
+                el.textContent = u.toLocaleString();
+                sessionStorage.setItem(STORAGE_COUNT_KEY, String(u));
+                sessionStorage.setItem(STORAGE_SESSION_KEY, 'true');
+              }
+            });
+          }
+        })
+        .catch(() => { if (cached === null) el.textContent = '0'; });
+      return;
+    }
+    const namespace = 'nss-team-gec-banka';
+    const key = 'site-visitors';
+    function fetchWithTimeout(url, ms) {
+      const controller = new AbortController();
+      const id = setTimeout(() => controller.abort(), ms);
+      return fetch(url, { signal: controller.signal })
+        .finally(() => clearTimeout(id));
+    }
+    const upUrl = `https://api.counterapi.dev/v1/${encodeURIComponent(namespace)}/${encodeURIComponent(key)}/up`;
+    const getUrl = `https://api.counterapi.dev/v1/${encodeURIComponent(namespace)}/${encodeURIComponent(key)}/get`;
+    const url = isNewSession ? upUrl : getUrl;
+    (async () => {
+      try {
+        const resGet = await fetchWithTimeout(getUrl, 6000);
+        const dataGet = await resGet.json();
+        const valueGet = (dataGet && (dataGet.value ?? dataGet.count));
+        const numGet = Number(valueGet);
+        if (!Number.isNaN(numGet) && numGet >= 0) {
+          el.textContent = numGet.toLocaleString();
+          sessionStorage.setItem(STORAGE_COUNT_KEY, String(numGet));
+        }
+        if (isNewSession) {
+          try {
+            const resUp = await fetchWithTimeout(upUrl, 6000);
+            const dataUp = await resUp.json();
+            const valueUp = (dataUp && (dataUp.value ?? dataUp.count));
+            const numUp = Number(valueUp);
+            if (!Number.isNaN(numUp) && numUp >= 0) {
+              el.textContent = numUp.toLocaleString();
+              sessionStorage.setItem(STORAGE_COUNT_KEY, String(numUp));
+              sessionStorage.setItem(STORAGE_SESSION_KEY, 'true');
+            }
+          } catch {}
+        }
+      } catch {
+        if (cached === null) el.textContent = '0';
+      }
+    })();
+  })();
+ </script>

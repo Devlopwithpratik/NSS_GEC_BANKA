@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oath Details | NSS GEC Banka</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              accent: '#E0F7FA',
+              nssBlue: '#0288D1',
+              bodyText: '#212529',
+              headingText: '#0D47A1',
+            },
+          },
+        },
+      }
+    </script>
+    <style>
+      :root { color-scheme: light; }
+      body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+      .font-heading { font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    </style>
+  </head>
+  <body class="bg-white text-bodyText">
+    <!-- Header -->
+    <header class="sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+        <div class="bg-white/95 backdrop-blur border border-gray-200 rounded-full shadow-md px-6 sm:px-8 py-3 flex items-center justify-between">
+          <a href="index.html" class="flex items-center gap-3">
+            <svg class="w-9 h-9 sm:w-10 sm:h-10 select-none" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NSS Logo">
+              <image href="https://res.cloudinary.com/ddi81vnxw/image/upload/logo_dfqvjk.jpg" width="64" height="64" preserveAspectRatio="xMidYMid meet" draggable="false" style="-webkit-user-drag: none; user-select: none;" />
+            </svg>
+            <span class="font-heading text-lg sm:text-xl md:text-2xl font-bold text-headingText">NSS GEC Banka</span>
+          </a>
+          <nav class="hidden md:flex items-center gap-7 sm:gap-8">
+            <a href="index.html" class="flex items-center gap-3 text-sm sm:text-base md:text-lg font-semibold uppercase tracking-wide text-headingText hover:text-nssBlue"><i class="fas fa-home w-5 h-5"></i><span>Home</span></a>
+            <a href="join.html" class="flex items-center gap-3 text-sm sm:text-base md:text-lg font-semibold uppercase tracking-wide text-headingText hover:text-nssBlue"><i class="fas fa-user-plus w-5 h-5"></i><span>Join</span></a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Intro -->
+    <section class="bg-accent/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <h1 class="font-heading text-3xl sm:text-4xl font-bold text-headingText">Oath Details</h1>
+        <p class="mt-3 max-w-3xl text-sm sm:text-base">Please fill your details. These will be used to prepare your NSS oath certificate.</p>
+      </div>
+    </section>
+
+    <!-- Selector and Forms -->
+    <main class="py-12 sm:py-16">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Type selector -->
+        <div class="bg-white rounded-2xl shadow p-6">
+          <!-- Sliding toggle -->
+          <div class="max-w-md mx-auto">
+            <div class="relative rounded-lg border border-nssBlue/40 bg-white overflow-hidden">
+              <div id="type-indicator" class="absolute inset-y-0 left-0 w-1/2 bg-nssBlue transition-transform duration-300 ease-out"></div>
+              <div class="relative grid grid-cols-2 text-center">
+                <button id="tab-student" type="button" class="z-10 py-3 font-semibold" aria-pressed="true">Student</button>
+                <button id="tab-faculty" type="button" class="z-10 py-3 font-semibold" aria-pressed="false">Faculty</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Student form -->
+          <form id="form-student" class="mt-6 space-y-5" novalidate>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Name</label>
+                <input type="text" name="name" required class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue" placeholder="Your Full Name">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Roll Number</label>
+                <input type="text" name="roll" required inputmode="text" pattern="^(?:\d{5}|D-2\d{4})$" maxlength="7" title="Enter 5 digits or D-2NNNN" class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue" placeholder="5-digit or D-2NNNN">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Branch</label>
+                <select name="branch" required class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-nssBlue">
+                  <option value="" disabled selected>Select Branch</option>
+                  <option>ECE</option>
+                  <option>EE</option>
+                  <option>ME</option>
+                  <option>CIVIL</option>
+                  <option>CSE</option>
+                  <option>CSE IOT</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Semester</label>
+                <select name="semester" required class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-nssBlue">
+                  <option value="" disabled selected>Select Semester</option>
+                  <option>1st Semester</option>
+                  <option>2nd Semester</option>
+                  <option>3rd Semester</option>
+                  <option>4th Semester</option>
+                  <option>5th Semester</option>
+                  <option>6th Semester</option>
+                 <option>7th Semester</option>
+                 <option>8th Semester</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Contact Number</label>
+                <input type="tel" name="contact" required pattern="^[0-9]{10}$" minlength="10" maxlength="10" title="Enter 10-digit mobile number" class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue" placeholder="10-Digit Mobile">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Email</label>
+                <input type="email" name="email" required class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue" placeholder="example@mail.com">
+              </div>
+            </div>
+          </form>
+
+          <!-- Faculty form -->
+          <form id="form-faculty" class="mt-6 space-y-5 hidden" novalidate>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Pronoun</label>
+                <select name="pronoun" required class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-nssBlue">
+                  <option value="" disabled selected>Select Pronoun</option>
+                  <option>None</option>
+                  <option>Dr</option>
+                  <option>Prof</option>
+                  <option>Mr</option>
+                  <option>Ms</option>
+                  <option>Mrs</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Name</label>
+                <input type="text" name="name" required class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue" placeholder="Your full name">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Contact Number</label>
+                <input type="tel" name="contact" required pattern="^[0-9]{10}$" minlength="10" maxlength="10" title="Enter 10-digit mobile number" class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue" placeholder="10-digit mobile">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Email</label>
+                <input type="email" name="email" required class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue" placeholder="you@example.com">
+              </div>
+            </div>
+          </form>
+
+          <!-- Proceed CTA -->
+          <div class="mt-6 flex items-center justify-center">
+            <a id="proceed-btn" href="oath.html" class="inline-flex justify-center rounded-full bg-nssBlue text-white px-6 py-3 text-sm font-semibold shadow hover:bg-[#0277BD]" aria-disabled="false">Proceed To Oath</a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-headingText text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div>
+            <h3 class="font-heading text-lg sm:text-xl font-bold">NSS Team GEC Banka</h3>
+            <p class="mt-2 text-sm opacity-90">Empowering students through Social Service and Community Development.</p>
+          </div>
+          <div>
+            <h3 class="font-heading text-lg font-semibold">Quick Links</h3>
+            <ul class="mt-3 space-y-2 text-sm">
+              <li><a href="index.html" class="hover:underline">Home</a></li>
+              <li><a href="objectives.html" class="hover:underline">Objectives</a></li>
+              <li><a href="activities.html" class="hover:underline">Activities</a></li>
+              <li><a href="team.html" class="hover:underline">Team</a></li>
+              <li><a href="join.html" class="hover:underline">Join Us</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-heading text-lg font-semibold">Contact Info</h3>
+            <ul class="mt-3 space-y-2 text-sm">
+              <li class="flex items-center gap-2"><i class="fas fa-map-marker-alt text-green-300 text-base"></i> <a href="https://maps.app.goo.gl/xe9ih385CyrwhTqU7" class="text-white hover:underline">Government Engineering College Banka, Bihar - 813102</a></li>
+              <li class="flex items-center gap-2"><i class="fas fa-phone fa-flip-horizontal text-green-300 text-base"></i> <a href="tel:+917077109670" class="text-white hover:underline">+91 7077109670</a></li>
+              <li class="flex items-center gap-2"><i class="fas fa-envelope text-green-300 text-base"></i> <a href="mailto:nssgecbanka@gmail.com" class="text-white hover:underline">nssgecbanka@gmail.com</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      (function() {
+        const STORAGE_TYPE_KEY = 'oath_user_type';
+        const STORAGE_DATA_KEY = 'oath_user_data';
+
+        const tabStudent = document.getElementById('tab-student');
+        const tabFaculty = document.getElementById('tab-faculty');
+        const indicator = document.getElementById('type-indicator');
+        const formStudent = document.getElementById('form-student');
+        const formFaculty = document.getElementById('form-faculty');
+        const proceedBtn = document.getElementById('proceed-btn');
+        const rollInput = formStudent.querySelector('input[name="roll"]');
+        const semSelect = formStudent.querySelector('select[name="semester"]');
+        const branchSelect = formStudent.querySelector('select[name="branch"]');
+
+        function resetSem() { if (semSelect) semSelect.selectedIndex = 0; }
+        function resetBranch() { if (branchSelect) branchSelect.selectedIndex = 0; }
+
+        function autoSemesterFromRoll(val) {
+          const setSem = (s) => { if (semSelect) semSelect.value = s; };
+          if (!val) { resetSem(); return; }
+          if (val.startsWith('D-')) {
+            const p2 = val.slice(2,4);
+            if (p2 === '22') setSem('7th Semester');
+            else if (p2 === '23') setSem('4th Semester');
+            else if (p2 === '24') setSem('3rd Semester');
+            else if (p2 === '25') setSem('1st Semester');
+            else resetSem();
+          } else {
+            const p2 = val.slice(0,2);
+            if (p2 === '22') setSem('7th Semester');
+            else if (p2 === '23') setSem('4th Semester');
+            else if (p2 === '24') setSem('3rd Semester');
+            else if (p2 === '25') setSem('1st Semester');
+            else resetSem();
+          }
+        }
+
+        function autoBranchFromRoll(val) {
+          const setBranch = (b) => { if (branchSelect) branchSelect.value = b; };
+          if (!val) { resetBranch(); return; }
+          const digits = String(val).replace(/\D/g,'');
+          if (digits.length >= 3) {
+            const code = digits.charAt(2);
+            if (code === '1') setBranch('CIVIL');
+            else if (code === '2') setBranch('ME');
+            else if (code === '3') setBranch('EE');
+            else if (code === '4') setBranch('ECE');
+            else if (code === '5') setBranch('CSE');
+            else if (code === '6') setBranch('CSE IOT');
+            else resetBranch();
+          } else { resetBranch(); }
+        }
+
+        if (rollInput) {
+          rollInput.addEventListener('input', () => {
+            let v = rollInput.value;
+            if (/^[dD]$/.test(v)) { rollInput.value = 'D-2'; autoSemesterFromRoll(rollInput.value); return; }
+            if (v.startsWith('D-2')) {
+              const tail = v.slice(3).replace(/\D/g,'').slice(0,4);
+              rollInput.value = 'D-2' + tail;
+            } else {
+              const digits = v.replace(/\D/g,'').slice(0,5);
+              rollInput.value = digits;
+            }
+            const cur = rollInput.value;
+            if (!cur) { resetSem(); resetBranch(); }
+            else { autoSemesterFromRoll(cur); autoBranchFromRoll(cur); }
+          });
+        }
+
+        function applyToggleUI(isStudent) {
+          // Move the blue indicator left/right and adjust text colors
+          indicator.style.transform = isStudent ? 'translateX(0%)' : 'translateX(100%)';
+          tabStudent.classList.toggle('text-white', isStudent);
+          tabFaculty.classList.toggle('text-white', !isStudent);
+          tabStudent.classList.toggle('text-headingText', !isStudent);
+          tabFaculty.classList.toggle('text-headingText', isStudent);
+        }
+
+        function setType(type) {
+          const isStudent = type === 'student';
+          tabStudent.setAttribute('aria-pressed', String(isStudent));
+          tabFaculty.setAttribute('aria-pressed', String(!isStudent));
+          formStudent.classList.toggle('hidden', !isStudent);
+          formFaculty.classList.toggle('hidden', isStudent);
+          applyToggleUI(isStudent);
+          localStorage.setItem(STORAGE_TYPE_KEY, type);
+        }
+
+        tabStudent.addEventListener('click', () => setType('student'));
+        tabFaculty.addEventListener('click', () => setType('faculty'));
+
+        // Restore last selection
+        const savedType = localStorage.getItem(STORAGE_TYPE_KEY);
+        if (savedType === 'faculty') setType('faculty'); else setType('student');
+
+        function collectDataAndValidate(form) {
+          // Use built-in constraint validation; show messages if any
+          if (!form.reportValidity()) return null;
+          return Object.fromEntries(new FormData(form).entries());
+        }
+
+        // Proceed button: validate current form, save to storage, then navigate
+        proceedBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const currentType = localStorage.getItem(STORAGE_TYPE_KEY) === 'faculty' ? 'faculty' : 'student';
+          const form = currentType === 'student' ? formStudent : formFaculty;
+          const data = collectDataAndValidate(form);
+          if (!data) return; // invalid inputs; browser shows messages
+          localStorage.setItem(STORAGE_TYPE_KEY, currentType);
+          localStorage.setItem(STORAGE_DATA_KEY, JSON.stringify(data));
+          window.location.href = 'oath.html';
+        });
+      })();
+    </script>
+</body>
+<script src="scroll-arrow.js"></script>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Become a Volunteer | NSS GEC Banka</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = { theme: { extend: { colors: { accent: '#E0F7FA', nssBlue: '#0288D1', bodyText: '#212529', headingText: '#0D47A1' } } } };
+    </script>
+    <style>
+      body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+      .font-heading { font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+      /* Ensure form controls never overflow the viewport on mobile */
+      select, input, textarea { max-width: 100%; }
+      /* Prevent clipping of native dropdown menus inside rounded containers */
+      .overflow-visible { overflow: visible; }
+    </style>
+  </head>
+  <body class="bg-white text-bodyText">
+    <!-- Header & Navigation (Sticky, pill-style) -->
+    <header class="sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+        <div class="bg-white/95 backdrop-blur border border-gray-200 rounded-full shadow-md px-6 sm:px-8 py-3 flex items-center justify-between">
+          <!-- Brand -->
+          <a href="index.html" class="flex items-center gap-3">
+            <svg class="w-9 h-9 sm:w-10 sm:h-10 select-none" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NSS Logo">
+              <image href="https://res.cloudinary.com/ddi81vnxw/image/upload/logo_dfqvjk.jpg" width="64" height="64" preserveAspectRatio="xMidYMid meet" draggable="false" style="-webkit-user-drag: none; user-select: none;" />
+            </svg>
+            <span class="font-heading text-lg sm:text-xl md:text-2xl font-bold text-headingText">NSS GEC Banka</span>
+          </a>
+          <!-- Desktop Nav with icons -->
+          <nav class="hidden md:flex items-center gap-7 sm:gap-8">
+            <a href="index.html" class="flex items-center gap-3 text-sm sm:text-base md:text-lg font-semibold uppercase tracking-wide text-headingText hover:text-nssBlue">
+              <i class="fas fa-home w-5 h-5"></i>
+              <span>Home</span>
+            </a>
+            <a href="objectives.html" class="flex items-center gap-3 text-sm sm:text-base md:text-lg font-semibold uppercase tracking-wide text-headingText hover:text-nssBlue">
+              <i class="fas fa-bullseye w-5 h-5"></i>
+              <span>Objectives</span>
+            </a>
+            <a href="activities.html" class="flex items-center gap-3 text-sm sm:text-base md:text-lg font-semibold uppercase tracking-wide text-headingText hover:text-nssBlue" aria-label="Activities">
+              <i class="fas fa-tasks w-5 h-5"></i>
+              <span>Activities</span>
+            </a>
+            <a href="team.html" class="flex items-center gap-3 text-sm sm:text-base md:text-lg font-semibold uppercase tracking-wide text-headingText hover:text-nssBlue">
+              <i class="fas fa-users w-5 h-5"></i>
+              <span>Team</span>
+            </a>
+          </nav>
+          <!-- Mobile toggle -->
+          <button id="mobile-menu-button" aria-label="Toggle navigation" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="md:hidden inline-flex items-center justify-center p-2 rounded-full bg-white text-headingText hover:text-nssBlue border border-gray-200">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+          </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden mt-2 bg-white/95 backdrop-blur rounded-2xl shadow border border-gray-200">
+          <div class="px-4 py-3 space-y-2">
+            <a href="index.html" class="flex items-center gap-3 py-2 text-base font-semibold text-headingText hover:text-nssBlue">
+              <i class="fas fa-home w-5 h-5"></i>
+              <span>Home</span>
+            </a>
+            <a href="objectives.html" class="flex items-center gap-3 py-2 text-base font-semibold text-headingText hover:text-nssBlue">
+              <i class="fas fa-bullseye w-5 h-5"></i>
+              <span>Objectives</span>
+            </a>
+            <a href="activities.html" class="flex items-center gap-3 py-2 text-base font-semibold text-headingText hover:text-nssBlue" aria-label="Activities">
+              <i class="fas fa-tasks w-4 h-4"></i>
+              <span>Activities</span>
+            </a>
+            <a href="team.html" class="flex items-center gap-2 py-2 text-sm font-medium text-headingText hover:text-nssBlue">
+              <i class="fas fa-users w-4 h-4"></i>
+              <span>Team</span>
+            </a>
+
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="bg-accent/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <h1 class="font-heading text-3xl sm:text-4xl font-bold text-headingText">Become a Volunteer</h1>
+        <p class="mt-3 max-w-3xl text-sm sm:text-base">Join NSS to develop leadership, teamwork, and contribute to society. Volunteers may receive an NSS certificate upon successful participation.</p>
+      </div>
+    </section>
+
+    <!-- Registration Form -->
+    <section class="py-12 sm:py-16">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <form id="volunteer-form" class="bg-white rounded-2xl shadow p-6 sm:p-8 space-y-5 overflow-visible">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Name</label>
+              <input type="text" name="name" required class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue" placeholder="Your Full Name" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Roll Number</label>
+              <input type="text" name="roll" required inputmode="text" pattern="^(?:\d{5}|D-2\d{4})$" maxlength="7" title="Enter 5 digits or D-2NNNN" class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue" placeholder="5-digit or D-2NNNN" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Branch</label>
+              <select name="branch" required class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-nssBlue">
+                <option value="" disabled selected>Select Branch</option>
+                <option>ECE</option>
+                <option>EE</option>
+                <option>ME</option>
+                <option>CIVIL</option>
+                <option>CSE</option>
+                <option>CSE IOT</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Semester</label>
+              <select name="semester" required class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-nssBlue">
+                <option value="" disabled selected>Select Semester</option>
+                <option>1st Semester</option>
+                <option>2nd Semester</option>
+                <option>3rd Semester</option>
+                <option>4th Semester</option>
+                <option>5th Semester</option>
+                <option>6th Semester</option>
+                <option>7th Semester</option>
+                <option>8th Semester</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Contact Number</label>
+              <input type="tel" name="contact" required pattern="^[0-9]{10}$" minlength="10" maxlength="10" title="Enter 10-digit mobile number" class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue" placeholder="10-Digit Mobile" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Email</label>
+              <input type="email" name="email" required class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue" placeholder="example@mail.com" />
+            </div>
+          </div>
+          <button type="submit" class="w-full h-12 inline-flex justify-center rounded-lg bg-nssBlue text-white px-6 text-sm font-semibold shadow hover:bg-[#0277BD] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-nssBlue">Submit</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer (4-column responsive) -->
+    <footer class="bg-headingText text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Brand & Social -->
+          <div>
+            <h3 class="font-heading text-lg sm:text-xl font-bold">NSS Team GEC Banka</h3>
+            <p class="mt-2 text-sm opacity-90">Empowering students through social service and community development.</p>
+
+          </div>
+          <!-- Quick Links -->
+          <div>
+            <h3 class="font-heading text-lg font-semibold">Quick Links</h3>
+            <ul class="mt-3 space-y-2 text-sm">
+              <li><a href="index.html" class="hover:underline">Home</a></li>
+              <li><a href="objectives.html" class="hover:underline">Objectives</a></li>
+              <li><a href="activities.html" class="hover:underline">Activities</a></li>
+              <li><a href="team.html" class="hover:underline">Team</a></li>
+              <li><a href="join.html" class="hover:underline">Join Us</a></li>
+            </ul>
+          </div>
+          <!-- Contact Info -->
+          <div>
+            <h3 class="font-heading text-lg font-semibold">Contact Info</h3>
+            <ul class="mt-3 space-y-2 text-sm">
+              <li class="flex items-center gap-2"><i class="fas fa-map-marker-alt text-green-300 text-base"></i> <a href="https://maps.app.goo.gl/xe9ih385CyrwhTqU7" class="text-white hover:underline">Government Engineering College Banka, Bihar - 813102</a></li>
+              <li class="flex items-center gap-2"><i class="fas fa-phone fa-flip-horizontal text-green-300 text-base"></i> <a href="tel:+917077109670" class="text-white hover:underline">+91 7077109670</a></li>
+              <li class="flex items-center gap-2"><i class="fas fa-envelope text-green-300 text-base"></i> <a href="mailto:nssgecbanka@gmail.com" class="text-white hover:underline">nssgecbanka@gmail.com</a></li>
+            </ul>
+          </div>
+
+        </div>
+        <!-- Visitor Count Bar -->
+        <div class="mt-6 bg-white/10 rounded-lg px-3 py-2 flex items-center justify-center gap-2 text-xs sm:text-sm">
+          <i class="fas fa-user-friends text-green-300"></i>
+          <span>Total Visitors:</span>
+          <span id="visitor-count" class="font-semibold">...</span>
+        </div>
+        <div class="mt-8 pt-6 border-t border-white/20 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs sm:text-sm opacity-90">
+          <p>© 2025 NSS Team GEC Banka. All rights reserved.</p>
+          <p>Designed & Developed by Pratik </p>
+        </div>
+      </div>
+  </footer>
+
+    <!-- Mobile Menu Script intentionally omitted: using inline onclick in header -->
+  </body>
+  <script type="module">
+    import { db, addDoc, collection } from './firebase-init.js';
+    const form = document.getElementById('volunteer-form');
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!form.reportValidity()) return;
+        const fd = new FormData(form);
+        const data = Object.fromEntries(fd.entries());
+        const record = {
+          name: data.name || '',
+          email: data.email || '',
+          contact: data.contact || '',
+          branch: data.branch || '',
+          semester: data.semester || '',
+          roll: data.roll || '',
+          submittedAt: Date.now(),
+        };
+        try { await addDoc(collection(db, 'volunteer_submissions'), record); } catch {}
+        window.location.href = '/thanks.html';
+      });
+    }
+  </script>
+  <script>
+    (function() {
+      const el = document.getElementById('visitor-count');
+      if (!el) return;
+      const STORAGE_COUNT_KEY = 'visitorCount';
+      const STORAGE_SESSION_KEY = 'hasBeenCounted';
+      const wantsReset = new URLSearchParams(location.search).get('resetVisitors') === '1';
+      function loadCounterLib() {
+        return new Promise((resolve, reject) => {
+          if (window.Counter) { resolve(); return; }
+          const s = document.createElement('script');
+          s.src = 'https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js';
+          s.onload = () => resolve();
+          s.onerror = () => reject(new Error('CounterAPI lib load failed'));
+          document.head.appendChild(s);
+        });
+      }
+      const cached = sessionStorage.getItem(STORAGE_COUNT_KEY);
+      if (cached !== null) {
+        const n = Number(cached);
+        if (!Number.isNaN(n) && n >= 0) {
+          el.textContent = n.toLocaleString();
+        }
+      } else {
+        el.textContent = '0';
+      }
+      const isNewSession = sessionStorage.getItem(STORAGE_SESSION_KEY) === null;
+      const ws = window.COUNTER_WORKSPACE;
+      const token = window.COUNTER_TOKEN;
+      const qp = new URLSearchParams(location.search);
+      const qTok = qp.get('counterToken');
+      const qEnd = qp.get('counterEndpoint');
+      const qId = qp.get('counterId');
+      if (qTok) sessionStorage.setItem('COUNTER_API_TOKEN', qTok);
+      if (qEnd) sessionStorage.setItem('COUNTER_API_ENDPOINT', qEnd);
+      if (qId) sessionStorage.setItem('COUNTER_COUNTER_ID', qId);
+      const ALT_TOKEN = sessionStorage.getItem('COUNTER_API_TOKEN') || window.COUNTER_API_TOKEN;
+      const ALT_ENDPOINT = sessionStorage.getItem('COUNTER_API_ENDPOINT') || window.COUNTER_API_ENDPOINT;
+      const ALT_ID = sessionStorage.getItem('COUNTER_COUNTER_ID') || window.COUNTER_COUNTER_ID;
+      const name = 'site-visitors';
+      if (wantsReset) {
+        if (ws && token) {
+          loadCounterLib()
+            .then(() => new Counter({ workspace: ws, accessToken: token }).set(name, 0))
+            .then(() => {
+              sessionStorage.removeItem(STORAGE_COUNT_KEY);
+              sessionStorage.removeItem(STORAGE_SESSION_KEY);
+              const u = new URL(location.href);
+              u.searchParams.delete('resetVisitors');
+              location.replace(u.href);
+            })
+            .catch(() => {});
+          return;
+        } else {
+          loadCounterLib()
+            .then(() => new Counter({ version: 'v1', namespace: 'nss-team-gec-banka' }).set(name, 0))
+            .then(() => {
+              sessionStorage.removeItem(STORAGE_COUNT_KEY);
+              sessionStorage.removeItem(STORAGE_SESSION_KEY);
+              const u = new URL(location.href);
+              u.searchParams.delete('resetVisitors');
+              location.replace(u.href);
+            })
+            .catch(() => {});
+          return;
+        }
+      }
+      if (ALT_TOKEN && ALT_ENDPOINT && ALT_ID) {
+        const endpoint = String(ALT_ENDPOINT).trim().replace(/^`|`$/g, '');
+        const fullUrl = `${endpoint}?id=${encodeURIComponent(ALT_ID)}`;
+        (async () => {
+          try {
+            if (isNewSession) {
+              const res = await fetch(fullUrl, { method: 'GET', headers: { 'Authorization': `Bearer ${ALT_TOKEN}`, 'Content-Type': 'application/json' } });
+              if (!res.ok) throw new Error('api');
+              const data = await res.json();
+              const val = (data && (data.value ?? data.count));
+              const num = Number(val);
+              if (!Number.isNaN(num) && num >= 0) {
+                el.textContent = num.toLocaleString();
+                sessionStorage.setItem(STORAGE_COUNT_KEY, String(num));
+                sessionStorage.setItem(STORAGE_SESSION_KEY, 'true');
+              }
+            } else {
+              if (cached !== null) {
+                const n = Number(cached);
+                if (!Number.isNaN(n) && n >= 0) el.textContent = n.toLocaleString();
+              }
+            }
+          } catch {
+            if (cached === null) {
+              el.textContent = '0';
+              if (ALT_TOKEN) {
+                try {
+                  const img = document.createElement('img');
+                  img.alt = 'Visitor Counter';
+                  img.src = `https://counter_service.com/counter/${ALT_TOKEN}`;
+                  img.style.height = '1em';
+                  img.style.verticalAlign = 'middle';
+                  el.parentNode && el.parentNode.insertBefore(img, el.nextSibling);
+                } catch {}
+              }
+            }
+          }
+        })();
+        return;
+      }
+      if (ws && token) {
+        loadCounterLib()
+          .then(() => {
+            const client = new Counter({ workspace: ws, accessToken: token });
+            return client.get(name).then(result => ({ client, result }));
+          })
+          .then(({ client, result }) => {
+            const v = Number(result && result.value);
+            if (!Number.isNaN(v) && v >= 0) {
+              el.textContent = v.toLocaleString();
+              sessionStorage.setItem(STORAGE_COUNT_KEY, String(v));
+            }
+            if (isNewSession) {
+              return client.up(name).then(up => {
+                const u = Number(up && up.value);
+                if (!Number.isNaN(u) && u >= 0) {
+                  el.textContent = u.toLocaleString();
+                  sessionStorage.setItem(STORAGE_COUNT_KEY, String(u));
+                  sessionStorage.setItem(STORAGE_SESSION_KEY, 'true');
+                }
+              });
+            }
+          })
+          .catch(() => { if (cached === null) el.textContent = '0'; });
+        return;
+      }
+      const namespace = 'nss-team-gec-banka';
+      const key = 'site-visitors';
+      function fetchWithTimeout(url, ms) {
+        const controller = new AbortController();
+        const id = setTimeout(() => controller.abort(), ms);
+        return fetch(url, { signal: controller.signal })
+          .finally(() => clearTimeout(id));
+      }
+      const upUrl = `https://api.counterapi.dev/v1/${encodeURIComponent(namespace)}/${encodeURIComponent(key)}/up`;
+      const getUrl = `https://api.counterapi.dev/v1/${encodeURIComponent(namespace)}/${encodeURIComponent(key)}/get`;
+      (async () => {
+        try {
+          const resGet = await fetchWithTimeout(getUrl, 6000);
+          const dataGet = await resGet.json();
+          const valueGet = (dataGet && (dataGet.value ?? dataGet.count));
+          const numGet = Number(valueGet);
+          if (!Number.isNaN(numGet) && numGet >= 0) {
+            el.textContent = numGet.toLocaleString();
+            sessionStorage.setItem(STORAGE_COUNT_KEY, String(numGet));
+          }
+          if (isNewSession) {
+            try {
+              const resUp = await fetchWithTimeout(upUrl, 6000);
+              const dataUp = await resUp.json();
+              const valueUp = (dataUp && (dataUp.value ?? dataUp.count));
+              const numUp = Number(valueUp);
+              if (!Number.isNaN(numUp) && numUp >= 0) {
+                el.textContent = numUp.toLocaleString();
+                sessionStorage.setItem(STORAGE_COUNT_KEY, String(numUp));
+                sessionStorage.setItem(STORAGE_SESSION_KEY, 'true');
+              }
+            } catch {}
+          }
+        } catch {
+          if (cached === null) el.textContent = '0';
+        }
+      })();
+    })();
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const roll = document.querySelector('#volunteer-form input[name="roll"]');
+      if (roll) {
+        roll.addEventListener('input', () => {
+          const v = roll.value.trim();
+          const ok = /^(?:\d{5}|D-2\d{4})$/.test(v);
+          roll.setCustomValidity(ok ? '' : 'Enter 5 digits or D-2NNNN');
+        });
+      }
+    });
+  </script>
+  <!-- No local storage: submissions handled by Netlify Forms when deployed on Netlify -->
+  <script src="scroll-arrow.js"></script>
+</html>

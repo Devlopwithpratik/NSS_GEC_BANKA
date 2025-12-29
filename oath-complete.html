@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oath Complete | NSS GEC Banka</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              accent: '#E0F7FA',
+              nssBlue: '#0288D1',
+              bodyText: '#212529',
+              headingText: '#0D47A1',
+            },
+          },
+        },
+      }
+    </script>
+    <script>
+      (function(){
+        const o = console.error;
+        console.error = function(){
+          try{
+            const s = Array.from(arguments).map(a => (typeof a === 'string' ? a : (a && a.message) || '')).join(' ');
+            if (s.includes('google.firestore.v1.Firestore/Listen/channel') && s.includes('net::ERR_ABORTED')) return;
+            if (s.includes('google.firestore.v1.Firestore/Write/channel') && s.includes('net::ERR_ABORTED')) return;
+            if (s.includes('identitytoolkit.googleapis.com') && s.includes('net::ERR_ABORTED')) return;
+          }catch{}
+          return o.apply(console, arguments);
+        };
+      })();
+    </script>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <style>
+      :root { color-scheme: light; }
+      body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+      .font-heading { font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    </style>
+  </head>
+  <body class="bg-white text-bodyText">
+    <!-- Header -->
+    <header class="sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+        <div class="bg-white/95 backdrop-blur border border-gray-200 rounded-full shadow-md px-6 sm:px-8 py-3 flex items-center justify-between">
+          <a href="index.html" class="flex items-center gap-3">
+            <svg class="w-9 h-9 sm:w-10 sm:h-10 select-none" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NSS Logo">
+              <image href="https://res.cloudinary.com/ddi81vnxw/image/upload/logo_dfqvjk.jpg" width="64" height="64" preserveAspectRatio="xMidYMid meet" draggable="false" style="-webkit-user-drag: none; user-select: none;" />
+            </svg>
+            <span class="font-heading text-lg sm:text-xl md:text-2xl font-bold text-headingText">NSS GEC Banka</span>
+          </a>
+          <nav class="hidden md:flex items-center gap-7 sm:gap-8">
+            <a href="index.html" class="flex items-center gap-3 text-sm sm:text-base md:text-lg font-semibold uppercase tracking-wide text-headingText hover:text-nssBlue"><i class="fas fa-home w-5 h-5"></i><span>Home</span></a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Complete -->
+    <main class="min-h-[60vh]">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+        <div class="bg-white rounded-2xl shadow p-8 text-center">
+          <div class="mb-2 flex items-center justify-center gap-2">
+            <i class="fas fa-check-circle text-green-600 text-2xl sm:text-3xl"></i>
+            <h1 class="font-heading text-lg sm:text-2xl font-bold text-headingText">Congratulations!</h1>
+          </div>
+          <div class="text-center">
+            <div id="congrats-name" class="font-heading text-xl sm:text-2xl font-bold"></div>
+            <div class="mt-1 text-sm sm:text-base">On Successfully Completing Your <span class="font-bold">Swachh Bharat Abhiyan</span> Oath.</div>
+          </div>
+          <p class="mt-3 text-sm sm:text-base">Thank you for your vital commitment to a Clean and Healthy India.</p>
+          <div class="mt-4 text-sm sm:text-base">
+            <p class="font-heading font-semibold">Your Certificate Pledge Reference No.: <span id="congrats-cert-id" class="font-semibold"></span></p>
+            <p class="mt-2">Preview your certificate below and download your official copy.</p>
+          </div>
+
+          
+
+          <div class="mt-8 -mx-4 sm:mx-0">
+            <img id="cert-img" class="w-full h-auto max-h-[88vh] sm:max-h-[85vh] shadow-lg bg-white rounded-lg border border-gray-200 object-contain" />
+          </div>
+          <div class="mt-6 flex flex-col items-center justify-center gap-3">
+            <a id="download-btn" href="#" download class="inline-flex w-64 justify-center rounded-full bg-nssBlue text-white px-6 py-3 text-sm font-semibold shadow hover:bg-[#0277BD]">Download Official Copy</a>
+            <a href="join.html" class="inline-flex w-64 justify-center rounded-full bg-green-300 text-headingText px-6 py-3 text-sm font-semibold shadow hover:bg-green-400">Join Us</a>
+            <a href="index.html" class="inline-flex w-64 justify-center rounded-full bg-white text-nssBlue px-6 py-3 text-sm font-semibold border border-nssBlue hover:bg-accent">Back to Home</a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-headingText text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div>
+            <h3 class="font-heading text-lg sm:text-xl font-bold">NSS Team GEC Banka</h3>
+            <p class="mt-2 text-sm opacity-90">Empowering students through Social Service and Community Development.</p>
+          </div>
+          <div>
+            <h3 class="font-heading text-lg font-semibold">Quick Links</h3>
+            <ul class="mt-3 space-y-2 text-sm">
+              <li><a href="index.html" class="hover:underline">Home</a></li>
+              <li><a href="objectives.html" class="hover:underline">Objectives</a></li>
+              <li><a href="activities.html" class="hover:underline">Activities</a></li>
+              <li><a href="team.html" class="hover:underline">Team</a></li>
+              <li><a href="join.html" class="hover:underline">Join Us</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-heading text-lg font-semibold">Contact Info</h3>
+            <ul class="mt-3 space-y-2 text-sm">
+              <li class="flex items-center gap-2"><i class="fas fa-map-marker-alt text-green-300 text-base"></i> <a href="https://maps.app.goo.gl/xe9ih385CyrwhTqU7" class="text-white hover:underline">Government Engineering College Banka, Bihar - 813102</a></li>
+              <li class="flex items-center gap-2"><i class="fas fa-phone fa-flip-horizontal text-green-300 text-base"></i> <a href="tel:+917077109670" class="text-white hover:underline">+91 7077109670</a></li>
+              <li class="flex items-center gap-2"><i class="fas fa-envelope text-green-300 text-base"></i> <a href="mailto:nssgecbanka@gmail.com" class="text-white hover:underline">nssgecbanka@gmail.com</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module">
+      import { db, collection, addDoc, getDocs, getDoc, setDoc, doc, query, where } from './firebase-init.js';
+
+      (async function() {
+        const STORAGE_TYPE_KEY = 'oath_user_type';
+        const STORAGE_DATA_KEY = 'oath_user_data';
+        // Removed local storage records key
+        const params = new URLSearchParams(location.search);
+
+        // Placeholder certificate URLs — replace with actual when available
+        const CERT_EN = 'https://placehold.co/1280x720/ffffff/0D47A1?text=NSS+Oath+Certificate+(English)';
+        const CERT_HI = 'https://placehold.co/1280x720/ffffff/0D47A1?text=NSS+Oath+Certificate+(Hindi)';
+
+        const congratsNameEl = document.getElementById('congrats-name');
+        const congratsCertEl = document.getElementById('congrats-cert-id');
+        const certImg = document.getElementById('cert-img');
+        const downloadBtn = document.getElementById('download-btn');
+
+        // Load stored details
+        const type = localStorage.getItem(STORAGE_TYPE_KEY);
+        let data = null;
+        try { data = JSON.parse(localStorage.getItem(STORAGE_DATA_KEY) || 'null'); } catch {}
+
+        function stableKey(obj) {
+          if (!obj || typeof obj !== 'object') return String(obj);
+          const keys = Object.keys(obj).sort();
+          const out = {};
+          for (const k of keys) out[k] = obj[k];
+          return JSON.stringify(out);
+        }
+        const dataKey = stableKey(data);
+        let lastCert = null;
+        try { lastCert = JSON.parse(localStorage.getItem('nss_last_cert') || 'null'); } catch {}
+
+        async function allocateCertId() {
+          try {
+            const now = new Date();
+            const year = String(now.getFullYear());
+            const serialDoc = doc(db, 'config', 'serial');
+            const snap = await getDoc(serialDoc);
+            let serial = 1;
+            if (snap.exists()) {
+              const data = snap.data() || {};
+              const currentYear = String(data.year || year);
+              const currentSerial = Number(data.certSerial || 0);
+              if (currentYear === year) serial = currentSerial + 1; else serial = 1;
+            }
+            await setDoc(serialDoc, { year, certSerial: serial, updatedAt: new Date().toISOString() }, { merge: true });
+            const padded = String(serial).padStart(4, '0');
+            return `NSS-GECB-${year}-${padded}`;
+          } catch {
+            const y = String(new Date().getFullYear());
+            return `NSS-GECB-${y}-0001`;
+          }
+        }
+
+        const createdAt = new Date().toISOString();
+        let certId;
+        let alreadySaved = false;
+        if (lastCert && lastCert.type === (type || 'unknown') && lastCert.dataKey === dataKey && lastCert.certId) {
+          certId = lastCert.certId;
+          alreadySaved = true;
+        } else {
+          certId = await allocateCertId();
+        }
+        const record = { certId, type: type || 'unknown', data: data || {}, createdAt };
+
+        const PENDING_KEY = 'nss_pending_records';
+        function loadPending() {
+          try { return JSON.parse(localStorage.getItem(PENDING_KEY) || '[]'); } catch { return []; }
+        }
+        function savePending(list) {
+          localStorage.setItem(PENDING_KEY, JSON.stringify(list));
+        }
+        async function flushPending() {
+          const list = loadPending();
+          if (!Array.isArray(list) || list.length === 0) return;
+          const remaining = [];
+          for (const item of list) {
+            try {
+              await addDoc(collection(db, "nss_records"), item);
+            } catch {
+              remaining.push(item);
+            }
+          }
+          savePending(remaining);
+        }
+        await flushPending();
+        
+        // Save to Firestore (skip on refresh with same data)
+        if (!alreadySaved) {
+          try {
+              await addDoc(collection(db, "nss_records"), record);
+              try { localStorage.setItem('nss_last_cert', JSON.stringify({ certId, type: type || 'unknown', dataKey })); } catch {}
+              console.log("Document written with ID: ", certId);
+          } catch (e) {
+              const pending = loadPending();
+              pending.push(record);
+              savePending(pending);
+              try { localStorage.setItem('nss_last_cert', JSON.stringify({ certId, type: type || 'unknown', dataKey })); } catch {}
+              alert("Saved locally. Will sync when connection restores.");
+          }
+        }
+
+        window.addEventListener('online', () => { flushPending(); });
+
+        const displayName = (data && (data.name || data.studentName || data.facultyName)) || 'Participant';
+        if (congratsNameEl) congratsNameEl.textContent = displayName;
+        if (congratsCertEl) congratsCertEl.textContent = certId;
+
+        async function generateCertificateImage(rec) {
+          let templateUrl = null;
+          try {
+            const stored = localStorage.getItem('nss_cert_template');
+            if (stored) templateUrl = stored;
+          } catch {}
+          if ((rec.type || '').toLowerCase() === 'faculty') {
+            templateUrl = 'https://res.cloudinary.com/ddi81vnxw/image/upload/Faculty_Certificate_jb2kfa.png';
+          } else if (!templateUrl) {
+            templateUrl = 'https://res.cloudinary.com/ddi81vnxw/image/upload/Certificate_wi2cpo.png';
+          }
+          let imgSrc = templateUrl;
+          try {
+            const res = await fetch(templateUrl, { cache: 'no-cache' });
+            if (res.ok) {
+              const blob = await res.blob();
+              imgSrc = URL.createObjectURL(blob);
+            }
+          } catch {}
+          const imgObj = new Image();
+          imgObj.src = imgSrc;
+          await imgObj.decode().catch(()=>{});
+          const width = imgObj.naturalWidth || 1654;
+          const height = imgObj.naturalHeight || 1170;
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          if (imgObj.naturalWidth > 0) ctx.drawImage(imgObj, 0, 0, width, height);
+          else {
+            ctx.fillStyle = 'rgb(255,255,242)';
+            ctx.fillRect(20, 20, width-40, height-40);
+          }
+          const { certId, type, data } = rec;
+          const t = (type || 'student').toLowerCase();
+          const d = data || {};
+          const draw = (text, x, y, size = 24, weight = 'bold') => {
+            ctx.font = `${weight} ${size}px "Times New Roman", serif`;
+            ctx.fillStyle = '#0D47A1';
+            ctx.textBaseline = 'alphabetic';
+            ctx.fillText(String(text || ''), x, height - y);
+          };
+          const drawCZ = (text, x, y, size = 24) => {
+            ctx.font = `normal ${size}px "Cinzel", serif`;
+            ctx.fillStyle = '#0D47A1';
+            ctx.textBaseline = 'alphabetic';
+            ctx.fillText(String(text || ''), x, height - y);
+          };
+          const drawVL = (text, x, y, size = 24) => {
+            ctx.font = `normal ${size}px "Vidaloka", serif`;
+            ctx.fillStyle = '#0D47A1';
+            ctx.textBaseline = 'alphabetic';
+            ctx.fillText(String(text || ''), x, height - y);
+          };
+          const refW = 1654, refH = 1170;
+          const scale = width / refW;
+          const pos = {
+            certId: { x: 0.770, y: 0.730, size: 27 },
+            name: { x: 0.330, y: 0.498, size: 68 },
+            branch: { x: 0.310, y: 0.429, size: 46 },
+            roll: { x: 0.150, y: 0.366, size: 46 },
+          };
+          draw(String(certId || ''), width * pos.certId.x, height * pos.certId.y, pos.certId.size * scale, 'bold');
+          const nameRaw = d.name || d.studentName || d.facultyName || 'Participant';
+          const norm = (s) => {
+            return String(s).split(/\s+/).filter(Boolean).map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+          };
+          const name = norm(nameRaw);
+          const p = (d.pronoun || '').trim();
+          const pDot = (t === 'faculty' && p && p !== 'None') ? (p.endsWith('.') ? p : p + '.') : '';
+          const titleName = pDot ? (pDot + ' ' + name) : name;
+          try { await document.fonts.load(`48px "Cinzel"`); } catch {}
+          {
+            const nameSize = pos.name.size * scale;
+            ctx.font = `normal ${nameSize}px "Cinzel", serif`;
+            const tw = ctx.measureText(titleName).width;
+            const leftX = (width * 0.5) - (tw / 2);
+            drawCZ(titleName, leftX, height * pos.name.y, nameSize);
+          }
+          const dept = d.branch || (t === 'faculty' ? (d.department || '') : '');
+          const roll = d.roll || '';
+          try { await document.fonts.load(`48px "Vidaloka"`); } catch {}
+          drawVL(dept, width * pos.branch.x, height * pos.branch.y, pos.branch.size * scale);
+          drawVL(roll, width * pos.roll.x, height * pos.roll.y, pos.roll.size * scale);
+          return canvas.toDataURL('image/png');
+        }
+
+        try {
+          const url = await generateCertificateImage({ certId, type, data });
+          if (url) {
+            certImg.src = url;
+            downloadBtn.href = url;
+            downloadBtn.setAttribute('download', `NSS_Cert_${certId}.png`);
+          }
+        } catch {}
+        if (certImg) {
+          certImg.addEventListener('click', async () => {
+            try {
+              if (document.fullscreenElement) {
+                await document.exitFullscreen();
+              } else {
+                await certImg.requestFullscreen();
+              }
+            } catch {}
+          });
+        }
+      })();
+    </script>
+    <script src="scroll-arrow.js"></script>
+  </body>
+</html>

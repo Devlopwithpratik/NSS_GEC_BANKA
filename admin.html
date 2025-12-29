@@ -1,0 +1,1545 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NSS Admin Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&family=Cinzel:wght@700&family=Vidaloka&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              accent: '#E0F7FA',
+              nssBlue: '#0288D1',
+              bodyText: '#212529',
+              headingText: '#0D47A1',
+            },
+          },
+        },
+      }
+    </script>
+    <script>
+      (function(){
+        const o = console.error;
+        console.error = function(){
+          try{
+            const s = Array.from(arguments).map(a => (typeof a === 'string' ? a : (a && a.message) || '')).join(' ');
+            if (s.includes('google.firestore.v1.Firestore/Listen/channel') && s.includes('net::ERR_ABORTED')) return;
+            if (s.includes('google.firestore.v1.Firestore/Write/channel') && s.includes('net::ERR_ABORTED')) return;
+            if (s.includes('identitytoolkit.googleapis.com') && s.includes('net::ERR_ABORTED')) return;
+          }catch{}
+          return o.apply(console, arguments);
+        };
+      })();
+    </script>
+    <style>
+      body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+      .font-heading { font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    </style>
+    <link href="styles.css" rel="stylesheet">
+  </head>
+  <body class="bg-accent/60 text-bodyText">
+    <!-- Header -->
+    <header class="sticky top-0 z-40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+        <div class="bg-white/95 backdrop-blur border border-gray-200 rounded-full shadow-md px-6 sm:px-8 py-3 flex items-center justify-between">
+          <a href="index.html" class="flex items-center gap-3">
+            <svg class="w-9 h-9 sm:w-10 sm:h-10 select-none" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NSS Logo">
+              <image href="https://res.cloudinary.com/ddi81vnxw/image/upload/logo_dfqvjk.jpg" width="64" height="64" preserveAspectRatio="xMidYMid meet" draggable="false" style="-webkit-user-drag: none; user-select: none;" />
+            </svg>
+            <span class="font-heading text-lg sm:text-xl md:text-2xl font-bold text-headingText">NSS GEC Banka</span>
+          </a>
+          <nav class="flex items-center gap-7 sm:gap-8">
+            <a id="nav-home" href="#home" class="hidden md:hidden text-sm sm:text-base md:text-lg font-semibold uppercase tracking-wide text-headingText hover:text-nssBlue">Dashboard</a>
+            <a id="nav-cert" href="#certificates" class="hidden md:hidden text-sm sm:text-base md:text-lg font-semibold uppercase tracking-wide text-headingText hover:text-nssBlue">Certificates</a>
+            <a id="nav-subs" href="#submissions" class="hidden md:hidden text-sm sm:text-base md:text-lg font-semibold uppercase tracking-wide text-headingText hover:text-nssBlue">Submissions</a>
+            <a id="nav-settings" href="#settings" class="hidden md:hidden text-sm sm:text-base md:text-lg font-semibold uppercase tracking-wide text-headingText hover:text-nssBlue">Settings</a>
+            <button id="logout-top-btn" class="hidden md:hidden text-sm sm:text-base md:text-lg font-semibold uppercase tracking-wide text-red-600 hover:text-red-700">Logout</button>
+            <button id="admin-mobile-menu-button" aria-label="Toggle navigation" class="hidden md:hidden items-center justify-center p-2 rounded-full bg-white text-headingText hover:text-nssBlue border border-gray-200">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+            </button>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Menu (Admin) -->
+    <div id="admin-mobile-menu" class="md:hidden hidden mt-2 mx-4 bg-white/95 backdrop-blur rounded-2xl shadow border border-gray-200">
+      <div class="px-4 py-3 space-y-2">
+        <a href="#home" id="mobile-nav-home" class="flex items-center gap-3 py-2 text-base font-semibold text-headingText hover:text-nssBlue">
+          <span>Dashboard</span>
+        </a>
+        <a href="#certificates" id="mobile-nav-cert" class="flex items-center gap-3 py-2 text-base font-semibold text-headingText hover:text-nssBlue">
+          <span>Certificates</span>
+        </a>
+        <a href="#submissions" id="mobile-nav-subs" class="flex items-center gap-3 py-2 text-base font-semibold text-headingText hover:text-nssBlue">
+          <span>Submissions</span>
+        </a>
+        <a href="#settings" id="mobile-nav-settings" class="flex items-center gap-3 py-2 text-base font-semibold text-headingText hover:text-nssBlue">
+          <span>Settings</span>
+        </a>
+        <button id="mobile-logout-btn" class="inline-flex items-center gap-3 py-2 text-base font-semibold text-red-600 hover:text-red-700">Logout</button>
+      </div>
+    </div>
+
+    <!-- Login Panel (full-height center) -->
+    <section id="login-panel" class="min-h-[70vh] grid place-items-center px-4 mt-2 sm:mt-4">
+      <div class="w-full max-w-md bg-white rounded-2xl shadow border border-gray-200 p-6 sm:p-8">
+        <h1 class="font-heading text-2xl font-bold text-headingText">Admin Login</h1>
+        <form class="mt-6 space-y-4" onsubmit="return false;">
+          <div class="flex items-center gap-2"></div>
+          <div id="reset-status" class="mt-1 text-xs text-gray-500"></div>
+          <div id="email-login" class="space-y-4">
+            <div>
+              <label class="block text-sm text-gray-600 mb-1" for="admin-user">Email</label>
+              <input id="admin-user" type="email" autocomplete="username" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue" placeholder="Enter email address" />
+            </div>
+            <div>
+              <label class="block text-sm text-gray-600 mb-1" for="admin-pass">Password</label>
+              <div class="relative">
+                <input id="admin-pass" type="password" autocomplete="current-password" class="w-full border border-gray-300 rounded-lg px-3 py-2 pr-12 focus:outline-none focus:ring-2 focus:ring-nssBlue" placeholder="••••••" />
+                <button id="pass-toggle" type="button" aria-label="Show password" class="absolute inset-y-0 right-2 my-auto h-8 w-8 grid place-items-center text-gray-500 hover:text-gray-700 cursor-pointer z-10" aria-pressed="false">
+                  <svg id="pass-eye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                  <svg id="pass-eye-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5 hidden"><path d="M17.94 17.94A10.94 10.94 0 0112 19c-7 0-11-7-11-7a21.8 21.8 0 014.46-5.94M9.9 4.24A10.94 10.94 0 0112 3c7 0 11 7 11 7a21.77 21.77 0 01-4.27 5.64M1 1l22 22"/></svg>
+                </button>
+              </div>
+            </div>
+            <button id="login-btn" class="w-full rounded-lg bg-nssBlue text-white px-4 py-2.5 text-sm font-semibold shadow hover:bg-[#0277BD]">Login</button>
+            <div class="grid grid-cols-2 gap-3">
+              <button id="forgot-btn" class="h-10 w-full rounded-lg bg-gray-100 text-headingText px-3 text-sm font-semibold border border-gray-200 hover:bg-gray-200">Forgot Password</button>
+              <button id="google-btn" class="h-10 w-full rounded-lg bg-white text-headingText px-3 text-sm font-semibold border border-gray-300 shadow hover:bg-gray-50 inline-flex items-center justify-center gap-2">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" class="w-5 h-5" />
+                <span>Google</span>
+              </button>
+            </div>
+          </div>
+          
+          <p id="login-status" class="text-sm text-red-600"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- Dashboard -->
+    <section id="home" class="hidden mt-2 sm:mt-4">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-white rounded-2xl shadow border border-gray-200 p-6">
+          <h2 class="font-heading text-2xl font-bold text-headingText">Welcome, <span id="home-name">Admin</span></h2>
+          <p class="mt-1 text-sm text-gray-600">Last login: <span id="home-last-login">—</span></p>
+        </div>
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Certificates Summary -->
+          <div class="bg-white rounded-2xl shadow border border-gray-200 p-6">
+            <h3 class="font-semibold text-headingText">Certificates</h3>
+            <div class="mt-2 w-full md:w-48 md:h-12 inline-flex items-center justify-center rounded-lg bg-accent text-headingText px-3 py-2 text-sm font-semibold border border-nssBlue/30 text-center">Total Issued: <span id="home-cert-count" class="font-bold">0</span></div>
+            <div class="mt-4 flex items-center gap-3 md:gap-4" title="Certificates generation flow">
+              <span class="text-sm md:text-base font-semibold text-headingText">Generation Flow</span>
+              <label class="inline-flex items-center cursor-pointer select-none">
+                <input id="cert-flow-toggle" type="checkbox" class="sr-only">
+                <span class="relative w-16 h-8 md:w-20 md:h-10 bg-gray-300 rounded-full transition-colors duration-200" id="cert-flow-track">
+                  <span class="absolute top-0 left-0 w-8 h-8 md:w-10 md:h-10 bg-white rounded-full shadow transition-transform duration-200" id="cert-flow-thumb"></span>
+                </span>
+              </label>
+            </div>
+            <div class="mt-4 flex items-center gap-2">
+              <button id="reset-btn" class="w-full md:w-48 md:h-12 inline-flex items-center justify-center rounded-lg bg-red-600 text-white px-4 py-2 text-sm font-semibold border border-red-700 hover:bg-red-700">Reset Certificates</button>
+              <span id="reset-status" class="text-xs text-gray-500"></span>
+            </div>
+            <a href="#certificates" id="home-visit-certs" class="mt-4 w-full md:w-48 md:h-12 h-12 inline-flex items-center justify-center rounded-lg bg-nssBlue text-white text-sm font-semibold shadow hover:bg-[#0277BD]">Visit Certificates</a>
+          </div>
+
+          <!-- Submissions Summary -->
+          <div class="bg-white rounded-2xl shadow border border-gray-200 p-6">
+            <h3 class="font-semibold text-headingText">Volunteer Submissions</h3>
+            <div class="mt-2 w-full md:w-48 md:h-12 inline-flex items-center justify-center rounded-lg bg-accent text-headingText px-3 py-2 text-sm font-semibold border border-nssBlue/30 text-center">Total Submissions: <span id="home-subs-count" class="font-bold">0</span></div>
+            <a href="#submissions" id="home-visit-subs" class="mt-4 w-full h-12 inline-flex items-center justify-center rounded-lg bg-nssBlue text-white text-sm font-semibold shadow hover:bg-[#0277BD]">Visit Submissions</a>
+          </div>
+
+          <div class="bg-white rounded-2xl shadow border border-gray-200 p-6">
+            <h3 class="font-semibold text-headingText">New Submissions</h3>
+            <div class="mt-2 w-full md:w-48 md:h-12 inline-flex items-center justify-center rounded-lg bg-accent text-headingText px-3 py-2 text-sm font-semibold border border-nssBlue/30 text-center">Since Last Login: <span id="home-new-count" class="font-bold">0</span></div>
+            <ul id="home-new-list" class="mt-3 space-y-2 text-sm text-gray-700"></ul>
+          </div>
+          
+          <div class="bg-white rounded-2xl shadow border border-gray-200 p-6">
+            <h3 class="font-semibold text-headingText">Notifications</h3>
+            <ul id="home-notify" class="mt-3 space-y-2 text-sm text-gray-700"></ul>
+            <p id="home-notify-empty" class="text-sm text-gray-600 mt-1">No new notifications.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certificates -->
+    <section id="dashboard" class="hidden mt-2 sm:mt-4">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Top bar -->
+        <div class="bg-white rounded-2xl shadow border border-gray-200 p-6">
+          <div class="flex flex-col sm:flex-row sm:items-end gap-4 sm:gap-6 justify-between">
+            <div>
+              <h2 class="font-heading text-2xl font-bold text-headingText">Certificates</h2>
+              <p class="mt-1 text-sm text-gray-600">Manage NSS Oath certificates stored in Firestore.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="mt-6 bg-white rounded-2xl shadow border border-gray-200 p-6">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+            <div>
+              <label class="block text-sm text-gray-600 mb-1" for="search">Search</label>
+              <input id="search" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue" placeholder="Search by name, certId, type..." />
+            </div>
+            <div>
+              <label class="block text-sm text-gray-600 mb-1" for="type-filter">Type</label>
+              <select id="type-filter" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue">
+                <option value="">All</option>
+                <option value="student">Student</option>
+                <option value="faculty">Faculty</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm text-transparent mb-1">Search</label>
+              <button id="search-btn" class="w-full md:w-48 md:h-12 inline-flex items-center justify-center rounded-lg bg-nssBlue text-white px-4 py-2 font-semibold shadow hover:bg-[#0277BD]">Search</button>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center justify-end">
+              <button id="export-btn" class="w-full md:w-48 md:h-12 inline-flex items-center justify-center rounded-lg bg-gray-100 text-headingText px-4 py-2 font-semibold border border-gray-200 hover:bg-gray-200">Export CSV</button>
+              <div class="w-full md:w-48 md:h-12 inline-flex items-center justify-center rounded-lg bg-accent text-headingText px-3 py-2 text-sm font-semibold border border-nssBlue/30 text-center">Records: <span id="record-count" class="font-bold">0</span></div>
+              <button id="add-cert-btn" class="w-full md:w-48 md:h-12 inline-flex items-center justify-center rounded-lg bg-nssBlue text-white px-4 py-2 font-semibold shadow hover:bg-[#0277BD]">Add/Generate Certificate</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="mt-6 bg-white rounded-2xl shadow border border-gray-200">
+          <div class="overflow-x-auto">
+            <table class="min-w-full">
+              <thead class="bg-gray-100">
+                <tr>
+                  <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Certificate No</th>
+                  <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Name</th>
+                  <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Type</th>
+                  <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Date</th>
+                  <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="records-tbody" class="divide-y divide-gray-200"></tbody>
+            </table>
+          </div>
+          <p id="empty-msg" class="text-gray-600 p-4"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Submissions Page -->
+    <section id="submissions" class="hidden mt-2 sm:mt-4">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-white rounded-2xl shadow border border-gray-200 p-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="font-heading text-2xl font-bold text-headingText">Volunteer Submissions</h2>
+              <p class="mt-1 text-sm text-gray-600">View and filter join form responses.</p>
+            </div>
+            <div class="inline-flex items-center justify-center rounded-lg bg-accent text-headingText px-3 py-2 text-sm font-semibold border border-nssBlue/30 text-center">Responses: <span id="subs-count" class="font-bold">0</span></div>
+          </div>
+        </div>
+
+        <div class="mt-6 bg-white rounded-2xl shadow border border-gray-200 p-6">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+            <div>
+              <label class="block text-sm text-gray-600 mb-1" for="subs-search">Search</label>
+              <input id="subs-search" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue" placeholder="Search name, email, phone, roll" />
+            </div>
+            <div>
+              <label class="block text-sm text-gray-600 mb-1" for="subs-branch">Branch</label>
+              <select id="subs-branch" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue">
+                <option value="">All</option>
+                <option value="ECE">ECE</option>
+                <option value="EE">EE</option>
+                <option value="ME">ME</option>
+                <option value="Civil">CIVIL</option>
+                <option value="CSE">CSE</option>
+                <option value="CSE IOT">CSE IOT</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm text-gray-600 mb-1" for="subs-semester">Semester</label>
+              <select id="subs-semester" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue">
+                <option value="">All</option>
+                <option>1st Semester</option>
+                <option>2nd Semester</option>
+                <option>3rd Semester</option>
+                <option>4th Semester</option>
+                <option>5th Semester</option>
+                <option>6th Semester</option>
+                <option>7th Semester</option>
+                <option>8th Semester</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm text-transparent mb-1">Search</label>
+              <button id="subs-search-btn" class="w-full md:w-48 md:h-12 inline-flex items-center justify-center rounded-lg bg-nssBlue text-white px-4 py-2 font-semibold shadow hover:bg-[#0277BD]">Search</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 bg-white rounded-2xl shadow border border-gray-200">
+          <div class="overflow-x-auto">
+            <table class="min-w-full">
+              <thead class="bg-gray-100">
+                <tr>
+                  <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Name</th>
+                  <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Email</th>
+                  <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Phone</th>
+                  <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Branch</th>
+                  <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Semester</th>
+                  <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Roll</th>
+                  <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Submitted</th>
+                </tr>
+              </thead>
+              <tbody id="subs-tbody" class="divide-y divide-gray-200"></tbody>
+            </table>
+          </div>
+          <p id="subs-empty" class="text-gray-600 p-4"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Settings Page (stub) -->
+    <section id="settings" class="hidden mt-2 sm:mt-4">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-white rounded-2xl shadow border border-gray-200 p-6">
+          <h2 class="font-heading text-2xl font-bold text-headingText">Settings</h2>
+          <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white rounded-2xl border border-gray-200 p-6">
+              <h3 class="font-semibold text-headingText">Account</h3>
+              <p class="text-sm text-gray-600 mt-1">Reset your password via email.</p>
+              <button id="settings-reset-btn" class="mt-3 w-full md:w-48 md:h-12 inline-flex items-center justify-center rounded-lg bg-nssBlue text-white px-4 py-2 text-sm font-semibold shadow hover:bg-[#0277BD]">Reset Password</button>
+              <p id="settings-reset-status" class="mt-2 text-xs text-gray-500"></p>
+            </div>
+            <div class="bg-white rounded-2xl border border-gray-200 p-6">
+              <h3 class="font-semibold text-headingText">Login History</h3>
+              <ul id="settings-login-history" class="mt-3 space-y-2 text-sm text-gray-700"></ul>
+              <p id="settings-login-empty" class="text-sm text-gray-600 mt-1">No history available.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Edit Modal -->
+    <div id="edit-modal" class="fixed inset-0 z-50 hidden">
+      <div class="absolute inset-0 bg-black/40"></div>
+      <div class="absolute inset-0 grid place-items-center p-4">
+        <div class="w-full max-w-lg bg-white rounded-2xl shadow-xl border border-gray-200 p-6 overflow-y-auto max-h-[90vh]">
+          <h3 class="font-heading text-xl font-bold text-headingText">Edit Certificate</h3>
+          <p class="mt-1 text-sm text-gray-600">Update details and save.</p>
+          <form class="mt-4 space-y-4" onsubmit="return false;">
+            <div>
+              <label class="block text-sm text-gray-600 mb-1" for="edit-type">Type</label>
+              <select id="edit-type" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue">
+                <option value="student">Student</option>
+                <option value="faculty">Faculty</option>
+              </select>
+            </div>
+            
+            <div class="space-y-4">
+              <!-- Pronoun (Faculty) -->
+              <div id="field-pronoun" class="hidden">
+                <label class="block text-sm text-gray-600 mb-1">Pronoun</label>
+                <select id="edit-pronoun" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue">
+                  <option value="">None</option>
+                  <option>Dr</option>
+                  <option>Prof</option>
+                  <option>Mr</option>
+                  <option>Ms</option>
+                  <option>Mrs</option>
+                </select>
+              </div>
+
+              <!-- Name (Common) -->
+              <div>
+                <label class="block text-sm text-gray-600 mb-1">Name</label>
+                <input id="edit-name" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue" />
+              </div>
+
+              <!-- Student Specific -->
+              <div id="field-roll" class="hidden">
+                <label class="block text-sm text-gray-600 mb-1">Roll Number</label>
+                <input id="edit-roll" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue" />
+              </div>
+              <div id="field-branch" class="hidden">
+                <label class="block text-sm text-gray-600 mb-1">Branch</label>
+                <select id="edit-branch" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue">
+                  <option value="">Select Branch</option>
+                  <option>ECE</option>
+                  <option>EE</option>
+                  <option>ME</option>
+                  <option>CIVIL</option>
+                  <option>CSE</option>
+                  <option>CSE IOT</option>
+                </select>
+              </div>
+              <div id="field-semester" class="hidden">
+                <label class="block text-sm text-gray-600 mb-1">Semester</label>
+                <select id="edit-semester" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue">
+                  <option value="">Select Semester</option>
+                  <option>1st Semester</option>
+                  <option>2nd Semester</option>
+                  <option>3rd Semester</option>
+                  <option>4th Semester</option>
+                  <option>5th Semester</option>
+                  <option>6th Semester</option>
+                  <option>7th Semester</option>
+                  <option>8th Semester</option>
+                </select>
+              </div>
+
+              <!-- Common Contact Info -->
+              <div>
+                <label class="block text-sm text-gray-600 mb-1">Contact Number</label>
+                <input id="edit-contact" type="tel" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue" />
+              </div>
+              <div>
+                <label class="block text-sm text-gray-600 mb-1">Email</label>
+                <input id="edit-email" type="email" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue" />
+              </div>
+            </div>
+
+            <div class="flex justify-end gap-2 pt-2">
+              <button id="edit-cancel-btn" class="rounded-lg bg-white text-headingText px-4 py-2 font-semibold border border-gray-200 hover:bg-gray-100">Cancel</button>
+              <button id="edit-save-btn" class="rounded-lg bg-nssBlue text-white px-4 py-2 font-semibold shadow hover:bg-[#0277BD]">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Certificate Modal -->
+    <div id="add-modal" class="fixed inset-0 z-50 hidden">
+      <div class="absolute inset-0 bg-black/40"></div>
+      <div class="absolute inset-0 grid place-items-center p-4">
+        <div class="w-full max-w-lg bg-white rounded-2xl shadow-xl border border-gray-200 p-6 overflow-y-auto max-h-[90vh]">
+          <h3 class="font-heading text-xl font-bold text-headingText">Add Certificate</h3>
+          <p class="mt-1 text-sm text-gray-600">Enter details to generate a certificate.</p>
+          <form class="mt-4 space-y-4" onsubmit="return false;">
+            <div>
+              <label class="block text-sm text-gray-600 mb-1" for="add-type">Type</label>
+              <select id="add-type" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue">
+                <option value="student" selected>Student</option>
+                <option value="faculty">Faculty</option>
+              </select>
+            </div>
+
+            <div class="space-y-4">
+              <div id="add-field-pronoun" class="hidden">
+                <label class="block text-sm text-gray-600 mb-1">Pronoun</label>
+                <select id="add-pronoun" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue">
+                  <option value="">None</option>
+                  <option>Dr</option>
+                  <option>Prof</option>
+                  <option>Mr</option>
+                  <option>Ms</option>
+                  <option>Mrs</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-sm text-gray-600 mb-1">Name</label>
+                <input id="add-name" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue" />
+              </div>
+
+              <div id="add-field-roll" class="">
+                <label class="block text-sm text-gray-600 mb-1">Roll Number</label>
+                <input id="add-roll" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue" />
+              </div>
+              <div id="add-field-branch" class="">
+                <label class="block text-sm text-gray-600 mb-1">Branch</label>
+                <select id="add-branch" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue">
+                  <option value="">Select Branch</option>
+                  <option>ECE</option>
+                  <option>EE</option>
+                  <option>ME</option>
+                  <option>CIVIL</option>
+                  <option>CSE</option>
+                  <option>CSE IOT</option>
+                </select>
+              </div>
+              <div id="add-field-semester" class="">
+                <label class="block text-sm text-gray-600 mb-1">Semester</label>
+                <select id="add-semester" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue">
+                  <option value="">Select Semester</option>
+                  <option>1st Semester</option>
+                  <option>2nd Semester</option>
+                  <option>3rd Semester</option>
+                  <option>4th Semester</option>
+                  <option>5th Semester</option>
+                  <option>6th Semester</option>
+                  <option>7th Semester</option>
+                  <option>8th Semester</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-sm text-gray-600 mb-1">Contact Number</label>
+                <input id="add-contact" type="tel" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue" />
+              </div>
+              <div>
+                <label class="block text-sm text-gray-600 mb-1">Email</label>
+                <input id="add-email" type="email" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-nssBlue" />
+              </div>
+            </div>
+
+            <div class="flex justify-end gap-2 pt-2">
+              <button id="add-cancel-btn" class="rounded-lg bg-white text-headingText px-4 py-2 font-semibold border border-gray-200 hover:bg-gray-100">Cancel</button>
+              <button id="add-save-btn" class="rounded-lg bg-nssBlue text-white px-4 py-2 font-semibold shadow hover:bg-[#0277BD]">Generate</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Preview Modal -->
+    <div id="preview-modal" class="fixed inset-0 z-50 hidden">
+      <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" id="preview-backdrop"></div>
+      <div class="absolute inset-0 grid place-items-center p-4 pointer-events-none">
+        <div class="pointer-events-auto bg-white rounded-xl shadow-2xl max-w-5xl w-full max-h-[90vh] flex flex-col overflow-hidden">
+           <div class="flex items-center justify-between p-4 border-b border-gray-200 bg-gray-50">
+              <h3 class="font-bold text-lg text-headingText">Certificate Preview</h3>
+              <button id="preview-close-icon" class="text-gray-500 hover:text-red-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+              </button>
+           </div>
+           <div class="flex-grow overflow-auto p-4 bg-gray-100 flex justify-center">
+              <img id="preview-img" class="w-full h-auto max-h-[82vh] sm:min-h-[600px] object-contain shadow-lg bg-white rounded-lg" />
+           </div>
+           <div class="p-4 border-t border-gray-200 bg-white flex justify-end gap-2">
+              <a id="preview-download-btn" href="#" download class="rounded-lg bg-nssBlue text-white px-4 py-2 font-semibold hover:bg-[#0277BD]">Download Image</a>
+              <button id="preview-close-btn" class="rounded-lg bg-gray-100 text-gray-700 px-4 py-2 font-semibold hover:bg-gray-200">Close</button>
+           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div id="delete-modal" class="fixed inset-0 z-50 hidden">
+      <div class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+      <div class="absolute inset-0 grid place-items-center p-4">
+        <div class="w-full max-w-sm bg-white rounded-xl shadow-xl border border-gray-200 p-6">
+          <div class="text-center">
+            <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4">
+               <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            </div>
+            <h3 class="text-lg font-medium text-gray-900">Delete Certificate?</h3>
+            <p class="mt-2 text-sm text-gray-500">Are you sure you want to delete this record? This action cannot be undone.</p>
+          </div>
+          <div class="mt-5 sm:mt-6 flex gap-3">
+            <button id="delete-cancel-btn" class="flex-1 justify-center rounded-lg bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Cancel</button>
+            <button id="delete-confirm-btn" class="flex-1 justify-center rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { db, auth, collection, addDoc, getDocs, getDoc, setDoc, doc, updateDoc, deleteDoc, query, orderBy, where, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink } from './firebase-init.js';
+
+      (function() {
+        const ADMIN_SESSION_KEY = 'nss_admin_logged_in';
+
+        const loginPanel = document.getElementById('login-panel');
+        const homePage = document.getElementById('home');
+        const dashboard = document.getElementById('dashboard');
+        const subsPage = document.getElementById('submissions');
+        const settingsPage = document.getElementById('settings');
+        const navHome = document.getElementById('nav-home');
+        const navCert = document.getElementById('nav-cert');
+        const navSubs = document.getElementById('nav-subs');
+        const navSettings = document.getElementById('nav-settings');
+        const mobileMenuBtn = document.getElementById('admin-mobile-menu-button');
+        const mobileMenu = document.getElementById('admin-mobile-menu');
+        const mobileNavHome = document.getElementById('mobile-nav-home');
+        const mobileNavCert = document.getElementById('mobile-nav-cert');
+        const mobileNavSubs = document.getElementById('mobile-nav-subs');
+        const mobileNavSettings = document.getElementById('mobile-nav-settings');
+        const mobileLogoutBtn = document.getElementById('mobile-logout-btn');
+        const loginBtn = document.getElementById('login-btn');
+        const logoutBtn = document.getElementById('logout-btn'); // Might be null
+        const logoutTopBtn = document.getElementById('logout-top-btn');
+        const certToggle = document.getElementById('cert-flow-toggle');
+        const loginStatus = document.getElementById('login-status');
+        const userInput = document.getElementById('admin-user');
+        const passInput = document.getElementById('admin-pass');
+        const forgotBtn = document.getElementById('forgot-btn');
+        const emailBox = document.getElementById('email-login');
+        const googleBtn = document.getElementById('google-btn');
+        const searchInput = document.getElementById('search');
+        const typeFilter = document.getElementById('type-filter');
+        const searchBtn = document.getElementById('search-btn');
+        const exportBtn = document.getElementById('export-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const resetStatus = document.getElementById('reset-status');
+        const tbody = document.getElementById('records-tbody');
+        const emptyMsg = document.getElementById('empty-msg');
+        const countEl = document.getElementById('record-count');
+        const subsSearchInput = document.getElementById('subs-search');
+        const subsBranchFilter = document.getElementById('subs-branch');
+        const subsSemesterFilter = document.getElementById('subs-semester');
+        const subsSearchBtn = document.getElementById('subs-search-btn');
+        const subsTbody = document.getElementById('subs-tbody');
+        const subsEmptyMsg = document.getElementById('subs-empty');
+        const subsCountEl = document.getElementById('subs-count');
+
+        // We will cache records here to avoid too many reads during client-side filtering
+        let cachedRecords = [];
+
+        async function loadRecords() {
+          try {
+             tbody.innerHTML = '<tr><td colspan="6" class="px-4 py-4 text-center text-gray-500">Loading records...</td></tr>';
+             const q = query(collection(db, "nss_records"), orderBy("createdAt", "desc"));
+             const querySnapshot = await getDocs(q);
+             cachedRecords = [];
+             querySnapshot.forEach((doc) => {
+                 cachedRecords.push({ firestoreId: doc.id, ...doc.data() });
+             });
+             renderTable(cachedRecords);
+             updateCount(cachedRecords.length);
+          } catch (e) {
+             console.error("Error loading records: ", e);
+             emptyMsg.textContent = 'Error loading records. Check console.';
+             tbody.innerHTML = '';
+          }
+        }
+
+        function updateCount(n) {
+            if (countEl) countEl.textContent = String(n);
+        }
+
+        async function allocateCertId() {
+          try {
+            const now = new Date();
+            const year = String(now.getFullYear());
+            const serialDoc = doc(db, 'config', 'serial');
+            const snap = await getDoc(serialDoc);
+            let serial = 1;
+            if (snap.exists()) {
+              const data = snap.data() || {};
+              const currentYear = String(data.year || year);
+              const currentSerial = Number(data.certSerial || 0);
+              serial = currentYear === year ? currentSerial + 1 : 1;
+            }
+            await setDoc(serialDoc, { year, certSerial: serial, updatedAt: new Date().toISOString() }, { merge: true });
+            const padded = String(serial).padStart(4, '0');
+            return `NSS-GECB-${year}-${padded}`;
+          } catch {
+            const y = String(new Date().getFullYear());
+            return `NSS-GECB-${y}-0001`;
+          }
+        }
+
+        function setView(loggedIn) {
+          if (loggedIn) {
+            loginPanel.classList.add('hidden');
+            dashboard.classList.remove('hidden');
+          } else {
+            dashboard.classList.add('hidden');
+            loginPanel.classList.remove('hidden');
+          }
+          if (logoutTopBtn) {
+            // Keep base 'hidden' class for mobile; only toggle desktop visibility
+            logoutTopBtn.classList.toggle('md:hidden', !loggedIn);
+            logoutTopBtn.classList.toggle('md:inline', loggedIn);
+          }
+          if (mobileMenuBtn && mobileMenu) {
+            mobileMenu.classList.add('hidden');
+          }
+          // Desktop admin links: control md breakpoint visibility
+          if (navHome) {
+            navHome.classList.toggle('md:hidden', !loggedIn);
+            navHome.classList.toggle('md:inline', loggedIn);
+          }
+          if (navCert) {
+            navCert.classList.toggle('md:hidden', !loggedIn);
+            navCert.classList.toggle('md:inline', loggedIn);
+          }
+          if (navSubs) {
+            navSubs.classList.toggle('md:hidden', !loggedIn);
+            navSubs.classList.toggle('md:inline', loggedIn);
+          }
+          if (navSettings) {
+            navSettings.classList.toggle('md:hidden', !loggedIn);
+            navSettings.classList.toggle('md:inline', loggedIn);
+          }
+          // Mobile hamburger: ensure shown when logged in
+          if (mobileMenuBtn) {
+            mobileMenuBtn.classList.toggle('hidden', !loggedIn);
+          }
+        }
+
+        function isLoggedIn() {
+          let session = null;
+          try { session = localStorage.getItem(ADMIN_SESSION_KEY); } catch {}
+          return !!auth.currentUser || !!session;
+        }
+
+        function setPage(page) {
+          if (!isLoggedIn()) return;
+          const isHome = page === 'home';
+          const isCert = page === 'certificates';
+          const isSubs = page === 'submissions';
+          const isSettings = page === 'settings';
+          if (homePage) homePage.classList.toggle('hidden', !isHome);
+          if (dashboard) dashboard.classList.toggle('hidden', !isCert);
+          if (subsPage) subsPage.classList.toggle('hidden', !isSubs);
+          if (settingsPage) settingsPage.classList.toggle('hidden', !isSettings);
+          [navHome, navCert, navSubs, navSettings].forEach((el) => {
+            if (!el) return;
+            const active = (el === navHome && isHome) || (el === navCert && isCert) || (el === navSubs && isSubs) || (el === navSettings && isSettings);
+            el.classList.toggle('text-nssBlue', active);
+          });
+          if (mobileMenu) mobileMenu.classList.add('hidden');
+          if (isSettings) {
+            try { setTimeout(loadSettings, 0); } catch {}
+          }
+        }
+
+        emailBox.classList.remove('hidden');
+
+        // Auth helpers
+        try { auth.useDeviceLanguage(); } catch {}
+        if (mobileMenuBtn && mobileMenu) {
+          mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+          });
+        }
+        if (mobileNavHome) mobileNavHome.addEventListener('click', (e) => { e.preventDefault(); if (!isLoggedIn()) return; setPage('home'); });
+        if (mobileNavCert) mobileNavCert.addEventListener('click', (e) => { e.preventDefault(); if (!isLoggedIn()) return; setPage('certificates'); });
+        if (mobileNavSubs) mobileNavSubs.addEventListener('click', (e) => { e.preventDefault(); if (!isLoggedIn()) return; setPage('submissions'); });
+        if (mobileNavSettings) mobileNavSettings.addEventListener('click', (e) => { e.preventDefault(); if (!isLoggedIn()) return; setPage('settings'); });
+        if (mobileLogoutBtn) mobileLogoutBtn.addEventListener('click', async () => { await signOut(auth); });
+        if (navHome) navHome.addEventListener('click', (e) => { e.preventDefault(); if (!isLoggedIn()) return; setPage('home'); });
+        if (navCert) navCert.addEventListener('click', (e) => { e.preventDefault(); if (!isLoggedIn()) return; setPage('certificates'); });
+        if (navSubs) navSubs.addEventListener('click', (e) => { e.preventDefault(); if (!isLoggedIn()) return; setPage('submissions'); });
+        if (navSettings) navSettings.addEventListener('click', (e) => { e.preventDefault(); if (!isLoggedIn()) return; setPage('settings'); });
+        if (forgotBtn) {
+          forgotBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const email = (userInput && userInput.value || '').trim();
+            if (!email) { loginStatus.textContent = 'Enter email to reset password.'; return; }
+            try {
+              await sendPasswordResetEmail(auth, email);
+              loginStatus.textContent = 'Password reset email sent.';
+            } catch (err) {
+              loginStatus.textContent = 'Failed to send reset email.';
+            }
+          });
+        }
+
+        if (googleBtn) {
+          googleBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const provider = new GoogleAuthProvider();
+            try {
+              await signInWithPopup(auth, provider);
+              setView(true);
+            } catch (err) {
+              const code = err && err.code ? String(err.code) : '';
+              if (code === 'auth/popup-blocked' || code === 'auth/operation-not-supported-in-this-environment') {
+                try {
+                  await signInWithRedirect(auth, provider);
+                  loginStatus.textContent = 'Redirecting to Google…';
+                } catch {
+                  loginStatus.textContent = 'Google sign-in failed. Try again.';
+                }
+              } else if (code === 'auth/unauthorized-domain') {
+                loginStatus.textContent = 'Add your domain in Firebase Authentication → Authorized domains.';
+              } else if (code === 'auth/operation-not-allowed') {
+                loginStatus.textContent = 'Enable Google provider in Firebase Authentication.';
+              } else {
+                loginStatus.textContent = 'Google sign-in failed. '
+              }
+            }
+          });
+          (async () => {
+            try {
+              const res = await getRedirectResult(auth);
+              if (res && res.user) setView(true);
+            } catch {}
+          })();
+        }
+
+        function pickDisplayName(data) {
+          if (!data) return 'Participant';
+          const keys = Object.keys(data);
+          const nameKey = keys.find(k => /name/i.test(k));
+          return data[nameKey] || data['studentName'] || data['facultyName'] || data['name'] || 'Participant';
+        }
+
+        function renderTable(records) {
+          tbody.innerHTML = '';
+          if (!records.length) {
+            emptyMsg.textContent = 'No certificate records available yet.';
+            return;
+          }
+          emptyMsg.textContent = '';
+          for (const r of records) {
+            const tr = document.createElement('tr');
+            const name = pickDisplayName(r.data);
+            const dateStr = r.createdAt ? new Date(r.createdAt).toLocaleString() : '';
+            // Use firestoreId for actions
+            tr.innerHTML = `
+              <td class="px-4 py-3 font-mono">${r.certId}</td>
+              <td class="px-4 py-3">${name}</td>
+              <td class="px-4 py-3">${r.type || ''}</td>
+              <td class="px-4 py-3">${dateStr}</td>
+              <td class="px-4 py-3">
+                <div class="flex items-center gap-3">
+                  <button class="preview-btn inline-flex items-center gap-1 rounded-md border border-gray-200 px-2 py-1 text-sm hover:bg-blue-50" data-id="${r.firestoreId}" title="Preview">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-blue-600"><path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" /><path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 010-1.186A10.004 10.004 0 0110 3c4.257 0 8.142 1.987 9.336 6.41.147.551.147 1.125 0 1.676C18.142 15.513 14.257 17.5 10 17.5c-4.257 0-8.142-1.987-9.336-6.41zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" /></svg>
+                    Preview
+                  </button>
+                  <button class="edit-btn inline-flex items-center gap-1 rounded-md border border-gray-200 px-2 py-1 text-sm hover:bg-gray-100" data-id="${r.firestoreId}" title="Edit">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-headingText"><path d="M15.58 3.58a2 2 0 0 1 2.84 2.84l-9.46 9.46a2 2 0 0 1-.84.5l-3.06.82a.75.75 0 0 1-.92-.92l.82-3.06a2 2 0 0 1 .5-.84l9.46-9.46Z"/><path d="M5 13.5V15h1.5l8.59-8.59-1.5-1.5L5 13.5Z"/></svg>
+                    Edit
+                  </button>
+                  <button class="delete-btn inline-flex items-center gap-1 rounded-md border border-gray-200 px-2 py-1 text-sm hover:bg-red-50" data-id="${r.firestoreId}" title="Delete">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-red-600"><path d="M8.5 3a1.5 1.5 0 0 1 3 0V4h3.5a.75.75 0 0 1 0 1.5h-.49l-.77 10.09A2 2 0 0 1 11.76 18H8.24a2 2 0 0 1-1.98-2.41L5.49 5.5H5a.75.75 0 0 1 0-1.5H8.5V3Z"/></svg>
+                    Delete
+                  </button>
+                </div>
+              </td>
+            `;
+            tbody.appendChild(tr);
+          }
+        }
+
+        function filterAndRender() {
+          const q = (searchInput.value || '').toLowerCase();
+          const t = (typeFilter.value || '').toLowerCase();
+          const filtered = cachedRecords.filter(r => {
+            const name = pickDisplayName(r.data).toLowerCase();
+            const id = (r.certId || '').toLowerCase();
+            const typeMatch = t ? (r.type || '').toLowerCase() === t : true;
+            const qMatch = !q || name.includes(q) || id.includes(q) || (r.type||'').toLowerCase().includes(q);
+            return typeMatch && qMatch;
+          });
+          renderTable(filtered);
+          updateCount(filtered.length);
+        }
+
+        function toCSV(records) {
+          const prefer = ['name','pronoun','roll','branch','semester','contact','email'];
+          const keySet = new Set();
+          for (const r of records) {
+            const d = r.data || {};
+            Object.keys(d).forEach(k => keySet.add(k));
+          }
+          const keys = prefer.concat(Array.from(keySet).filter(k => !prefer.includes(k)));
+          const headers = ['certId','type','createdAt','name', ...keys.filter(k => k !== 'name')];
+          const rows = records.map(r => {
+            const d = r.data || {};
+            const base = [r.certId, r.type || '', r.createdAt || '', pickDisplayName(d)];
+            const rest = keys.filter(k => k !== 'name').map(k => d[k] ?? '');
+            return base.concat(rest);
+          });
+          const csv = [headers.join(','), ...rows.map(row => row.map(v => '"' + String(v).replace(/"/g,'""') + '"').join(','))].join('\n');
+          return csv;
+        }
+
+        let editingDocId = null;
+        const editModal = document.getElementById('edit-modal');
+        const editTypeSelect = document.getElementById('edit-type');
+        const editSaveBtn = document.getElementById('edit-save-btn');
+        const editCancelBtn = document.getElementById('edit-cancel-btn');
+        
+        // Preview Modal Logic
+        const previewModal = document.getElementById('preview-modal');
+        const previewBackdrop = document.getElementById('preview-backdrop');
+        const previewCloseIcon = document.getElementById('preview-close-icon');
+        const previewCloseBtn = document.getElementById('preview-close-btn');
+        const previewDownloadBtn = document.getElementById('preview-download-btn');
+        const previewImg = document.getElementById('preview-img');
+        
+        function closePreviewModal() {
+           previewModal.classList.add('hidden');
+           if (previewImg) previewImg.src = '';
+        }
+        
+        [previewBackdrop, previewCloseIcon, previewCloseBtn].forEach(el => {
+           if(el) el.addEventListener('click', closePreviewModal);
+        });
+
+        async function generateCertificateImage(rec) {
+             let templateUrl = null;
+             try {
+               const stored = localStorage.getItem('nss_cert_template');
+               if (stored) templateUrl = stored;
+             } catch {}
+             if ((rec.type || '').toLowerCase() === 'faculty') {
+               templateUrl = 'https://res.cloudinary.com/ddi81vnxw/image/upload/Faculty_Certificate_jb2kfa.png';
+             } else if (!templateUrl) {
+               templateUrl = 'https://res.cloudinary.com/ddi81vnxw/image/upload/Certificate_wi2cpo.png';
+             }
+             let imgSrc = templateUrl;
+             try {
+               const res = await fetch(templateUrl, { cache: 'no-cache' });
+               if (res.ok) {
+                 const blob = await res.blob();
+                 imgSrc = URL.createObjectURL(blob);
+               }
+             } catch {}
+             const imgObj = new Image();
+             imgObj.src = imgSrc;
+             await imgObj.decode().catch(()=>{});
+             const width = imgObj.naturalWidth || 1654;
+             const height = imgObj.naturalHeight || 1170;
+             const canvas = document.createElement('canvas');
+             canvas.width = width;
+             canvas.height = height;
+             const ctx = canvas.getContext('2d');
+             if (imgObj.naturalWidth > 0) ctx.drawImage(imgObj, 0, 0, width, height);
+             else { ctx.fillStyle = 'rgb(255,255,242)'; ctx.fillRect(20, 20, width-40, height-40); }
+
+             const { certId, type, data } = rec;
+             const t = (type || 'student').toLowerCase();
+             const d = data || {};
+             const draw = (text, x, y, size = 24, weight = 'bold') => {
+               ctx.font = `${weight} ${size}px "Times New Roman", serif`;
+               ctx.fillStyle = '#0D47A1';
+               ctx.textBaseline = 'alphabetic';
+               ctx.fillText(String(text || ''), x, height - y);
+             };
+             const drawCZ = (text, x, y, size = 24) => {
+               ctx.font = `normal ${size}px "Cinzel", serif`;
+               ctx.fillStyle = '#0D47A1';
+               ctx.textBaseline = 'alphabetic';
+               ctx.fillText(String(text || ''), x, height - y);
+             };
+             const drawVL = (text, x, y, size = 24) => {
+               ctx.font = `normal ${size}px "Vidaloka", serif`;
+               ctx.fillStyle = '#0D47A1';
+               ctx.textBaseline = 'alphabetic';
+               ctx.fillText(String(text || ''), x, height - y);
+             };
+             const refW = 1654; const refH = 1170;
+             const scale = width / refW;
+              const pos = {
+               certId: { x: 0.770, y: 0.730, size: 27 },
+               name: { x: 0.330, y: 0.498, size: 68 },
+               branch: { x: 0.310, y: 0.429, size: 46 },
+               roll: { x: 0.150, y: 0.366, size: 46 },
+             };
+             draw(String(certId||''), width * pos.certId.x, height * pos.certId.y, pos.certId.size * scale, 'bold');
+             const nameRaw = d.name || d.studentName || d.facultyName || 'Participant';
+             const norm = (s) => {
+               return String(s).split(/\s+/).filter(Boolean).map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+             };
+             const name = norm(nameRaw);
+             const p = (d.pronoun || '').trim();
+             const pDot = (t === 'faculty' && p && p !== 'None') ? (p.endsWith('.') ? p : p + '.') : '';
+             const titleName = pDot ? (pDot + ' ' + name) : name;
+             try { await document.fonts.load(`48px "Cinzel"`); } catch {}
+             {
+               const nameSize = pos.name.size * scale;
+               ctx.font = `normal ${nameSize}px "Cinzel", serif`;
+               const tw = ctx.measureText(titleName).width;
+               const leftX = (width * 0.5) - (tw / 2);
+               drawCZ(titleName, leftX, height * pos.name.y, nameSize);
+             }
+             const dept = d.branch || (t === 'faculty' ? (d.department || '') : '');
+             const roll = d.roll || '';
+             try { await document.fonts.load(`48px "Vidaloka"`); } catch {}
+             drawVL(String(dept||''), width * pos.branch.x, height * pos.branch.y, pos.branch.size * scale);
+             drawVL(String(roll||''), width * pos.roll.x, height * pos.roll.y, pos.roll.size * scale);
+             return canvas.toDataURL('image/png');
+        }
+
+        async function openPreviewModal(id) {
+           const rec = cachedRecords.find(r => r.firestoreId === id);
+           if (!rec) return alert('Record not found in cache. Try refreshing.');
+           
+           previewModal.classList.remove('hidden');
+           
+           try {
+               const url = await generateCertificateImage(rec);
+               if (url) {
+                   previewImg.src = url;
+                   previewDownloadBtn.href = url;
+                   previewDownloadBtn.setAttribute('download', `NSS_Cert_${rec.certId}.png`);
+               }
+           } catch (e) {
+               console.error(e);
+               alert('Error generating certificate image: ' + e.message);
+           }
+        }
+
+        // Delete Modal Logic
+        let deleteTargetId = null;
+        const deleteModal = document.getElementById('delete-modal');
+        const deleteConfirmBtn = document.getElementById('delete-confirm-btn');
+        const deleteCancelBtn = document.getElementById('delete-cancel-btn');
+
+        function openDeleteModal(id) {
+           deleteTargetId = id;
+           deleteModal.classList.remove('hidden');
+        }
+        function closeDeleteModal() {
+           deleteTargetId = null;
+           deleteModal.classList.add('hidden');
+        }
+        
+        if(deleteCancelBtn) deleteCancelBtn.addEventListener('click', closeDeleteModal);
+        if(deleteConfirmBtn) deleteConfirmBtn.addEventListener('click', async () => {
+           if (deleteTargetId) {
+              try {
+                  await deleteDoc(doc(db, "nss_records", deleteTargetId));
+                  // Refresh locally
+                  cachedRecords = cachedRecords.filter(r => r.firestoreId !== deleteTargetId);
+                  filterAndRender();
+              } catch (e) {
+                  console.error("Error deleting document: ", e);
+                  alert("Failed to delete record.");
+              }
+           }
+           closeDeleteModal();
+        });
+        
+        // Field elements
+        const editName = document.getElementById('edit-name');
+        const editPronoun = document.getElementById('edit-pronoun');
+        const editRoll = document.getElementById('edit-roll');
+        const editBranch = document.getElementById('edit-branch');
+        const editSemester = document.getElementById('edit-semester');
+        const editContact = document.getElementById('edit-contact');
+        const editEmail = document.getElementById('edit-email');
+        
+        // Containers
+        const fieldPronoun = document.getElementById('field-pronoun');
+        const fieldRoll = document.getElementById('field-roll');
+        const fieldBranch = document.getElementById('field-branch');
+        const fieldSemester = document.getElementById('field-semester');
+
+        function updateEditFields(type) {
+           const isStudent = (type === 'student');
+           if (isStudent) {
+             fieldPronoun.classList.add('hidden');
+             fieldRoll.classList.remove('hidden');
+             fieldBranch.classList.remove('hidden');
+             fieldSemester.classList.remove('hidden');
+           } else {
+             fieldPronoun.classList.remove('hidden');
+             fieldRoll.classList.add('hidden');
+             fieldBranch.classList.add('hidden');
+             fieldSemester.classList.add('hidden');
+           }
+        }
+        
+        editTypeSelect.addEventListener('change', () => updateEditFields(editTypeSelect.value));
+
+        function openEditModal(record) {
+          editingDocId = record.firestoreId;
+          const d = record.data || {};
+          let t = (record.type || 'student').toLowerCase();
+          if (t !== 'student' && t !== 'faculty') t = 'student';
+          
+          editTypeSelect.value = t;
+          updateEditFields(t);
+
+          editName.value = d.name || d.studentName || d.facultyName || '';
+          editPronoun.value = d.pronoun || '';
+          editRoll.value = d.roll || '';
+          editBranch.value = d.branch || '';
+          editSemester.value = d.semester || '';
+          editContact.value = d.contact || '';
+          editEmail.value = d.email || '';
+
+          editModal.classList.remove('hidden');
+        }
+        function closeEditModal() {
+          editingDocId = null;
+          editModal.classList.add('hidden');
+        }
+
+        async function refresh() {
+          await loadRecords();
+          await loadSubmissions();
+          await loadHome();
+        }
+
+        onAuthStateChanged(auth, async (user) => {
+          let session = null;
+          try { session = localStorage.getItem(ADMIN_SESSION_KEY); } catch {}
+          const loggedIn = !!user || !!session;
+          setView(loggedIn);
+          if (loggedIn) {
+            const now = Date.now();
+            try { localStorage.setItem('nss_admin_last_login', String(now)); } catch {}
+            try {
+              if (user) {
+                await setDoc(doc(db, 'admins', user.uid), {
+                  uid: user.uid,
+                  email: user.email || null,
+                  displayName: user.displayName || null,
+                  lastLoginAt: now,
+                  lastLoginAtISO: new Date(now).toISOString(),
+                }, { merge: true });
+                try { await addDoc(collection(db, 'admins', user.uid, 'logins'), { ts: now, agent: navigator.userAgent || null, platform: navigator.platform || null }); } catch {}
+                try { sessionStorage.setItem('nss_admin_uid', user.uid); } catch {}
+              }
+            } catch {}
+            setPage('home');
+            refresh();
+          }
+        });
+
+        // Events
+        loginBtn.addEventListener('click', async () => {
+          const u = (userInput.value || '').trim();
+          const p = (passInput.value || '').trim();
+          if (!u || !p) { loginStatus.textContent = 'Enter email and password.'; return; }
+          const prev = loginBtn.textContent;
+          loginBtn.disabled = true;
+          loginBtn.textContent = 'Signing in…';
+          loginStatus.textContent = '';
+          try {
+            await signInWithEmailAndPassword(auth, u, p);
+            loginStatus.textContent = '';
+            // Fallback in case auth state callback lags
+            setView(true);
+          } catch (e) {
+            const code = e && e.code ? String(e.code) : '';
+            if (code === 'auth/invalid-email') loginStatus.textContent = 'Invalid email address.';
+            else if (code === 'auth/user-not-found') loginStatus.textContent = 'No user found for this email.';
+            else if (code === 'auth/wrong-password') loginStatus.textContent = 'Incorrect password.';
+            else if (code === 'auth/operation-not-allowed') loginStatus.textContent = 'Enable Email/Password in Firebase Authentication.';
+            else if (code === 'auth/network-request-failed') loginStatus.textContent = 'Network error. Check your connection and try again.';
+            else if (code === 'auth/too-many-requests') loginStatus.textContent = 'Too many attempts. Try again later.';
+            else if (code === 'auth/invalid-api-key') loginStatus.textContent = 'Invalid API key. Check Firebase config.';
+            else loginStatus.textContent = 'Login failed. Check credentials.';
+          } finally {
+            loginBtn.disabled = false;
+            loginBtn.textContent = prev;
+          }
+        });
+        document.getElementById('admin-pass').addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            loginBtn.click();
+          }
+        });
+        function clearSession() {
+          try { localStorage.removeItem(ADMIN_SESSION_KEY); } catch {}
+        }
+        if (logoutBtn) {
+          logoutBtn.addEventListener('click', async () => { clearSession(); await signOut(auth); });
+        }
+        if (logoutTopBtn) {
+          logoutTopBtn.addEventListener('click', async () => { clearSession(); await signOut(auth); });
+        }
+
+        const passToggle = document.getElementById('pass-toggle');
+        const passEye = document.getElementById('pass-eye');
+        const passEyeOff = document.getElementById('pass-eye-off');
+        if (passToggle) {
+          passToggle.addEventListener('click', () => {
+            const isText = passInput.type === 'text';
+            passInput.type = isText ? 'password' : 'text';
+            passToggle.setAttribute('aria-pressed', String(!isText));
+            passToggle.setAttribute('aria-label', isText ? 'Show password' : 'Hide password');
+            if (passEye && passEyeOff) {
+              passEye.classList.toggle('hidden', !isText);
+              passEyeOff.classList.toggle('hidden', isText);
+            }
+          });
+        }
+
+        function setCertToggleUI(on) {
+          const track = document.getElementById('cert-flow-track');
+          const thumb = document.getElementById('cert-flow-thumb');
+          if (!track || !thumb) return;
+          track.classList.toggle('bg-nssBlue', on);
+          const apply = () => {
+            const tw = track.offsetWidth || 0;
+            const th = thumb.offsetWidth || 0;
+            if (!tw || !th) { requestAnimationFrame(apply); return; }
+            const dx = Math.max(0, tw - th);
+            thumb.style.transform = on ? `translateX(${dx}px)` : 'translateX(0)';
+          };
+          requestAnimationFrame(apply);
+        }
+        async function loadCertFlowFromCloud() {
+          try {
+            const snap = await getDoc(doc(db, 'config', 'app'));
+            return snap.exists() ? !!snap.data().certFlowEnabled : true;
+          } catch {
+            return true;
+          }
+        }
+        async function saveCertFlowToCloud(on) {
+          try {
+            await setDoc(doc(db, 'config', 'app'), { certFlowEnabled: !!on, updatedAt: new Date().toISOString() }, { merge: true });
+          } catch {}
+        }
+        (async () => {
+          if (!certToggle) return;
+          const initialOn = await loadCertFlowFromCloud();
+          certToggle.checked = initialOn;
+          setCertToggleUI(initialOn);
+          certToggle.addEventListener('change', async () => {
+            const on = !!certToggle.checked;
+            setCertToggleUI(on);
+            await saveCertFlowToCloud(on);
+          });
+          setInterval(async () => {
+            try {
+              const on = await loadCertFlowFromCloud();
+              certToggle.checked = on;
+              setCertToggleUI(on);
+            } catch {}
+          }, 15000);
+        })();
+        searchInput.addEventListener('input', filterAndRender);
+        typeFilter.addEventListener('change', filterAndRender);
+        searchBtn.addEventListener('click', refresh);
+
+        // Add certificate
+        const addModal = document.getElementById('add-modal');
+        const addTypeSelect = document.getElementById('add-type');
+        const addFieldPronoun = document.getElementById('add-field-pronoun');
+        const addFieldRoll = document.getElementById('add-field-roll');
+        const addFieldBranch = document.getElementById('add-field-branch');
+        const addFieldSemester = document.getElementById('add-field-semester');
+        const addPronoun = document.getElementById('add-pronoun');
+        const addName = document.getElementById('add-name');
+        const addRoll = document.getElementById('add-roll');
+        const addBranch = document.getElementById('add-branch');
+        const addSemester = document.getElementById('add-semester');
+        const addContact = document.getElementById('add-contact');
+        const addEmail = document.getElementById('add-email');
+        const addCancelBtn = document.getElementById('add-cancel-btn');
+        const addSaveBtn = document.getElementById('add-save-btn');
+        const addBtn = document.getElementById('add-cert-btn');
+
+        function updateAddFields(type) {
+          const isStudent = (type === 'student');
+          addFieldPronoun.classList.toggle('hidden', isStudent);
+          addFieldRoll.classList.toggle('hidden', !isStudent);
+          addFieldBranch.classList.toggle('hidden', !isStudent);
+          addFieldSemester.classList.toggle('hidden', !isStudent);
+        }
+        if (addTypeSelect) addTypeSelect.addEventListener('change', () => updateAddFields(addTypeSelect.value));
+        function openAddModal() {
+          if (!addModal) return;
+          addTypeSelect.value = 'student';
+          updateAddFields('student');
+          addName.value = '';
+          addPronoun.value = '';
+          addRoll.value = '';
+          addBranch.value = '';
+          addSemester.value = '';
+          addContact.value = '';
+          addEmail.value = '';
+          addModal.classList.remove('hidden');
+        }
+        function closeAddModal() { if (addModal) addModal.classList.add('hidden'); }
+        if (addBtn) addBtn.addEventListener('click', openAddModal);
+        if (addCancelBtn) addCancelBtn.addEventListener('click', closeAddModal);
+        if (addSaveBtn) {
+          addSaveBtn.addEventListener('click', async () => {
+            try {
+              const type = addTypeSelect.value === 'faculty' ? 'faculty' : 'student';
+              const data = { name: addName.value.trim(), contact: addContact.value.trim(), email: addEmail.value.trim() };
+              if (type === 'student') {
+                data.roll = addRoll.value.trim();
+                data.branch = addBranch.value;
+                data.semester = addSemester.value;
+              } else {
+                data.pronoun = addPronoun.value;
+              }
+              const certId = await allocateCertId();
+              const record = { certId, type, data, createdAt: new Date().toISOString() };
+              await addDoc(collection(db, 'nss_records'), record);
+              closeAddModal();
+              await loadRecords();
+            } catch (e) {
+              console.error('Add certificate failed:', e);
+              alert('Failed to generate certificate.');
+            }
+          });
+        }
+
+        let cachedSubs = [];
+        async function loadSubmissions() {
+          try {
+            const qSnap = await getDocs(query(collection(db, 'volunteer_submissions'), orderBy('submittedAt', 'desc')));
+            cachedSubs = [];
+            qSnap.forEach((doc) => {
+              cachedSubs.push({ id: doc.id, ...doc.data() });
+            });
+            renderSubs(cachedSubs);
+            if (subsCountEl) subsCountEl.textContent = String(cachedSubs.length);
+          } catch (e) {
+            console.error('Error loading submissions:', e);
+            if (subsEmptyMsg) subsEmptyMsg.textContent = 'Error loading submissions. Check console.';
+          }
+        }
+
+        async function loadHome() {
+          const nameEl = document.getElementById('home-name');
+          const lastEl = document.getElementById('home-last-login');
+          const newCountEl = document.getElementById('home-new-count');
+          const listEl = document.getElementById('home-new-list');
+          const certCountEl = document.getElementById('home-cert-count');
+          const subsTotalEl = document.getElementById('home-subs-count');
+          const visitCerts = document.getElementById('home-visit-certs');
+          const visitSubs = document.getElementById('home-visit-subs');
+          if (!nameEl || !lastEl || !newCountEl || !listEl) return;
+          const user = auth.currentUser;
+          const displayName = (user && (user.displayName || user.email)) || 'Admin';
+          nameEl.textContent = displayName;
+          let last = 0;
+          try {
+            if (user) {
+              const snap = await getDoc(doc(db, 'admins', user.uid));
+              if (snap.exists()) {
+                const d = snap.data();
+                last = Number(d.lastLoginAt || 0);
+              }
+            } else {
+              last = Number(localStorage.getItem('nss_admin_last_login') || '0');
+            }
+          } catch {
+            last = Number(localStorage.getItem('nss_admin_last_login') || '0');
+          }
+          if (last > 0) lastEl.textContent = new Date(last).toLocaleString(); else lastEl.textContent = '—';
+          const recent = cachedSubs.slice(0, 50);
+          const since = recent.filter(r => Number(r.submittedAt || 0) > last);
+          newCountEl.textContent = String(since.length);
+          listEl.innerHTML = '';
+          since.slice(0, 5).forEach(r => {
+            const li = document.createElement('li');
+            const t = r.submittedAt ? new Date(r.submittedAt).toLocaleString() : '';
+            li.textContent = `${r.name || 'Unknown'} • ${t}`;
+            listEl.appendChild(li);
+          });
+          const notifyList = document.getElementById('home-notify');
+          const notifyEmpty = document.getElementById('home-notify-empty');
+          if (notifyList && notifyEmpty) {
+            notifyList.innerHTML = '';
+            if (since.length) {
+              notifyEmpty.classList.add('hidden');
+              since.slice(0, 3).forEach(r => {
+                const li = document.createElement('li');
+                const t = r.submittedAt ? new Date(r.submittedAt).toLocaleString() : '';
+                li.textContent = `New submission: ${(r.name || 'Unknown')} • ${t}`;
+                notifyList.appendChild(li);
+              });
+            } else {
+              notifyEmpty.classList.remove('hidden');
+            }
+          }
+          if (certCountEl) certCountEl.textContent = String(cachedRecords.length || 0);
+          if (subsTotalEl) subsTotalEl.textContent = String(cachedSubs.length || 0);
+          if (visitCerts) visitCerts.addEventListener('click', (e) => { e.preventDefault(); setPage('certificates'); });
+          if (visitSubs) visitSubs.addEventListener('click', (e) => { e.preventDefault(); setPage('submissions'); });
+        }
+
+        function renderSubs(records) {
+          if (!subsTbody) return;
+          subsTbody.innerHTML = '';
+          if (!records.length) {
+            if (subsEmptyMsg) subsEmptyMsg.textContent = 'No submissions yet.';
+            return;
+          }
+          if (subsEmptyMsg) subsEmptyMsg.textContent = '';
+          for (const r of records) {
+            const tr = document.createElement('tr');
+            const dt = r.submittedAt ? new Date(r.submittedAt).toLocaleString() : '';
+            tr.innerHTML = `
+              <td class="px-4 py-3">${r.name || ''}</td>
+              <td class="px-4 py-3">${r.email || ''}</td>
+              <td class="px-4 py-3">${r.phone || ''}</td>
+              <td class="px-4 py-3">${r.branch || ''}</td>
+              <td class="px-4 py-3">${r.semester || ''}</td>
+              <td class="px-4 py-3">${r.roll || ''}</td>
+              <td class="px-4 py-3">${dt}</td>`;
+            subsTbody.appendChild(tr);
+          }
+        }
+
+        function filterSubs() {
+          const q = (subsSearchInput && subsSearchInput.value || '').trim().toLowerCase();
+          const b = (subsBranchFilter && subsBranchFilter.value || '');
+          const s = (subsSemesterFilter && subsSemesterFilter.value || '');
+          const out = cachedSubs.filter(r => {
+            const text = `${r.name||''} ${r.email||''} ${r.phone||''} ${r.roll||''}`.toLowerCase();
+            const okText = !q || text.includes(q);
+            const okB = !b || String(r.branch||'') === b;
+            const okS = !s || String(r.semester||'') === s;
+            return okText && okB && okS;
+          });
+          renderSubs(out);
+          if (subsCountEl) subsCountEl.textContent = String(out.length);
+        }
+
+        if (subsSearchInput) subsSearchInput.addEventListener('input', filterSubs);
+        if (subsBranchFilter) subsBranchFilter.addEventListener('change', filterSubs);
+        if (subsSemesterFilter) subsSemesterFilter.addEventListener('change', filterSubs);
+        if (subsSearchBtn) subsSearchBtn.addEventListener('click', () => { filterSubs(); });
+        
+        // Row actions
+        tbody.addEventListener('click', (e) => {
+          const prevEl = e.target.closest('.preview-btn');
+          const editEl = e.target.closest('.edit-btn');
+          const delEl = e.target.closest('.delete-btn');
+          
+          if (prevEl) {
+             const id = prevEl.getAttribute('data-id');
+             openPreviewModal(id);
+          } else if (editEl) {
+            const id = editEl.getAttribute('data-id');
+            const rec = cachedRecords.find(r => r.firestoreId === id);
+            if (rec) openEditModal(rec);
+          } else if (delEl) {
+            const id = delEl.getAttribute('data-id');
+            openDeleteModal(id);
+          }
+        });
+
+        // Edit modal buttons
+        editCancelBtn.addEventListener('click', (e) => { e.preventDefault(); closeEditModal(); });
+        editSaveBtn.addEventListener('click', async (e) => {
+          e.preventDefault();
+          if (!editingDocId) return;
+          
+          const type = editTypeSelect.value;
+          const newData = {
+            name: editName.value.trim(),
+            contact: editContact.value.trim(),
+            email: editEmail.value.trim()
+          };
+          if (type === 'student') {
+            newData.roll = editRoll.value.trim();
+            newData.branch = editBranch.value;
+            newData.semester = editSemester.value;
+          } else {
+            newData.pronoun = editPronoun.value;
+          }
+          
+          const updatedFields = {
+            type: type,
+            data: newData
+          };
+
+          try {
+              await updateDoc(doc(db, "nss_records", editingDocId), updatedFields);
+              closeEditModal();
+              refresh();
+          } catch (e) {
+              console.error("Error updating document: ", e);
+              alert("Failed to update record.");
+          }
+        });
+        
+        exportBtn.addEventListener('click', () => {
+          const q = (searchInput.value || '').toLowerCase();
+          // Re-filter current cache to respect search
+          const filtered = cachedRecords.filter(r => {
+             // ... reuse filter logic ...
+             const name = pickDisplayName(r.data).toLowerCase();
+             return !q || name.includes(q) || r.certId.toLowerCase().includes(q);
+          });
+          const csv = toCSV(filtered);
+          const blob = new Blob([csv], { type: 'text/csv' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'nss_certificates.csv';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        });
+
+        if (resetBtn) {
+          resetBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const ok = window.confirm('Reset all certificate data and IDs? This cannot be undone.');
+            if (ok !== true) return;
+            try {
+              resetBtn.disabled = true;
+              resetBtn.textContent = 'Resetting…';
+              if (!auth.currentUser) { alert('Please login first to reset.'); return; }
+              const qs = await getDocs(collection(db, 'nss_records'));
+              const ids = [];
+              qs.forEach(d => ids.push(d.id));
+              if (resetStatus) resetStatus.textContent = `Deleting ${ids.length} records…`;
+              await Promise.all(ids.map(id => deleteDoc(doc(db, 'nss_records', id))));
+              cachedRecords = [];
+              renderTable(cachedRecords);
+              updateCount(0);
+              try {
+                localStorage.removeItem('nss_pending_records');
+                localStorage.removeItem('nss_last_cert');
+              } catch {}
+              try {
+                const y = new Date().getFullYear();
+                await setDoc(doc(db, 'config', 'serial'), { certSerial: 0, year: y, updatedAt: new Date().toISOString() }, { merge: true });
+              } catch {}
+              alert('Reset complete: all records and IDs cleared.');
+              await loadRecords();
+              if (resetStatus) resetStatus.textContent = 'Reset complete.';
+            } catch (e) {
+              console.error('Reset failed:', e);
+              alert('Failed to clear records.');
+              if (resetStatus) resetStatus.textContent = 'Reset failed.';
+            } finally {
+              resetBtn.disabled = false;
+              resetBtn.textContent = 'Reset';
+            }
+          });
+        }
+
+        // Settings
+        const settingsResetBtn = document.getElementById('settings-reset-btn');
+        const settingsResetStatus = document.getElementById('settings-reset-status');
+        async function loadSettings() {
+          const listEl = document.getElementById('settings-login-history');
+          const emptyEl = document.getElementById('settings-login-empty');
+          const user = auth.currentUser;
+          if (!listEl || !emptyEl || !user) return;
+          listEl.innerHTML = '';
+          try {
+            const qs = await getDocs(query(collection(db, 'admins', user.uid, 'logins'), orderBy('ts', 'desc')));
+            const items = [];
+            qs.forEach(d => items.push(d.data()));
+            if (!items.length) { emptyEl.classList.remove('hidden'); return; }
+            emptyEl.classList.add('hidden');
+            items.slice(0, 5).forEach(it => {
+              const li = document.createElement('li');
+              const t = it.ts ? new Date(it.ts).toLocaleString() : '';
+              li.textContent = `${t} • ${(it.platform || '')}`;
+              listEl.appendChild(li);
+            });
+          } catch {
+            emptyEl.classList.remove('hidden');
+          }
+        }
+        if (settingsResetBtn) settingsResetBtn.addEventListener('click', async () => {
+          const user = auth.currentUser;
+          if (!user || !user.email) { if (settingsResetStatus) settingsResetStatus.textContent = 'No email found.'; return; }
+          try {
+            await sendPasswordResetEmail(auth, user.email);
+            if (settingsResetStatus) settingsResetStatus.textContent = 'Password reset email sent.';
+          } catch {
+            if (settingsResetStatus) settingsResetStatus.textContent = 'Failed to send reset email.';
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
+        

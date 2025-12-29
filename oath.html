@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Take Your Oath | NSS GEC Banka</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              accent: '#E0F7FA',
+              nssBlue: '#0288D1',
+              bodyText: '#212529',
+              headingText: '#0D47A1',
+            },
+          },
+        },
+      }
+    </script>
+    <style>
+      :root { color-scheme: light; }
+      body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+      .font-heading { font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    </style>
+  </head>
+  <body class="bg-white text-bodyText">
+    <!-- Header -->
+    <header class="sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+        <div class="bg-white/95 backdrop-blur border border-gray-200 rounded-full shadow-md px-6 sm:px-8 py-3 flex items-center justify-between">
+          <a href="index.html" class="flex items-center gap-3">
+            <svg class="w-9 h-9 sm:w-10 sm:h-10 select-none" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NSS Logo">
+              <image href="https://res.cloudinary.com/ddi81vnxw/image/upload/logo_dfqvjk.jpg" width="64" height="64" preserveAspectRatio="xMidYMid meet" draggable="false" style="-webkit-user-drag: none; user-select: none;" />
+            </svg>
+            <span class="font-heading text-lg sm:text-xl md:text-2xl font-bold text-headingText">NSS GEC Banka</span>
+          </a>
+          <nav class="hidden md:flex items-center gap-7 sm:gap-8">
+            <a href="index.html" class="flex items-center gap-3 text-sm sm:text-base md:text-lg font-semibold uppercase tracking-wide text-headingText hover:text-nssBlue"><i class="fas fa-home w-5 h-5"></i><span>Home</span></a>
+            <a href="oath-form.html" class="flex items-center gap-3 text-sm sm:text-base md:text-lg font-semibold uppercase tracking-wide text-headingText hover:text-nssBlue"><i class="fas fa-file-alt w-5 h-5"></i><span>Details</span></a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Language Toggle -->
+    <section class="bg-accent/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="flex items-center justify-between">
+          <div>
+            <h1 class="font-heading text-3xl sm:text-4xl font-bold text-headingText">Take Your Oath</h1>
+            <p class="mt-2 text-sm sm:text-base">Choose your language and read the oath carefully.</p>
+          </div>
+          <!-- Sliding language toggle -->
+          <div class="max-w-md w-full sm:w-auto">
+            <div class="relative rounded-lg border border-nssBlue/40 bg-white overflow-hidden">
+              <div id="lang-indicator" class="absolute inset-y-0 left-0 w-1/2 bg-nssBlue transition-transform duration-300 ease-out"></div>
+              <div class="relative grid grid-cols-2 text-center">
+                <button id="btn-en" type="button" class="z-10 py-2 sm:py-3 font-semibold" aria-pressed="true">English</button>
+                <button id="btn-hi" type="button" class="z-10 py-2 sm:py-3 font-semibold" aria-pressed="false">Hindi</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Oath Image -->
+    <main class="py-12 sm:py-16">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-2xl shadow overflow-hidden">
+          <img id="oath-img" src="https://res.cloudinary.com/ddi81vnxw/image/upload/486664424_1091213656366426_3232610722822925100_n.jpg_gx3z1f.jpg" alt="Oath Image" class="w-full h-auto object-contain">
+        </div>
+        <div class="mt-6 flex items-center gap-3">
+          <input id="oath-tick" type="checkbox" class="h-4 w-4">
+          <label for="oath-tick" class="text-sm sm:text-base">I have read and taken the oath.</label>
+        </div>
+        <div class="mt-8 flex w-full items-center justify-between gap-4">
+          <a id="back-btn" href="oath-form.html" class="inline-flex items-center justify-center rounded-full bg-headingText/10 text-headingText px-6 py-3 text-sm font-semibold border border-headingText/20 hover:bg-headingText/20 min-h-[44px]">Back</a>
+          <a id="next-btn" href="#" class="pointer-events-none opacity-50 inline-flex items-center justify-center rounded-full bg-headingText text-white px-6 py-3 text-sm font-semibold shadow min-h-[44px]" aria-disabled="true">Next</a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-headingText text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div>
+            <h3 class="font-heading text-lg sm:text-xl font-bold">NSS Team GEC Banka</h3>
+            <p class="mt-2 text-sm opacity-90">Empowering students through Social Service and Community Development.</p>
+          </div>
+          <div>
+            <h3 class="font-heading text-lg font-semibold">Quick Links</h3>
+            <ul class="mt-3 space-y-2 text-sm">
+              <li><a href="index.html" class="hover:underline">Home</a></li>
+              <li><a href="objectives.html" class="hover:underline">Objectives</a></li>
+              <li><a href="activities.html" class="hover:underline">Activities</a></li>
+              <li><a href="team.html" class="hover:underline">Team</a></li>
+              <li><a href="join.html" class="hover:underline">Join Us</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-heading text-lg font-semibold">Contact Info</h3>
+            <ul class="mt-3 space-y-2 text-sm">
+              <li class="flex items-center gap-2"><i class="fas fa-map-marker-alt text-green-300 text-base"></i> <a href="https://maps.app.goo.gl/xe9ih385CyrwhTqU7" class="text-white hover:underline">Government Engineering College Banka, Bihar - 813102</a></li>
+              <li class="flex items-center gap-2"><i class="fas fa-phone fa-flip-horizontal text-green-300 text-base"></i> <a href="tel:+917077109670" class="text-white hover:underline">+91 7077109670</a></li>
+              <li class="flex items-center gap-2"><i class="fas fa-envelope text-green-300 text-base"></i> <a href="mailto:nssgecbanka@gmail.com" class="text-white hover:underline">nssgecbanka@gmail.com</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      (function() {
+        const IMG_EN = 'https://res.cloudinary.com/ddi81vnxw/image/upload/486664424_1091213656366426_3232610722822925100_n.jpg_gx3z1f.jpg';
+        const IMG_HI = 'https://res.cloudinary.com/ddi81vnxw/image/upload/486371338_1091213879699737_7778317941615178490_n.jpg_atlmrp.jpg';
+
+        const btnEn = document.getElementById('btn-en');
+        const btnHi = document.getElementById('btn-hi');
+        const indicator = document.getElementById('lang-indicator');
+        const img = document.getElementById('oath-img');
+        const tick = document.getElementById('oath-tick');
+        const nextBtn = document.getElementById('next-btn');
+
+        let lang = 'en';
+
+        function applyLangToggleUI(isEn) {
+          indicator.style.transform = isEn ? 'translateX(0%)' : 'translateX(100%)';
+          btnEn.classList.toggle('text-white', isEn);
+          btnHi.classList.toggle('text-white', !isEn);
+          btnEn.classList.toggle('text-headingText', !isEn);
+          btnHi.classList.toggle('text-headingText', isEn);
+        }
+
+        function setLang(l) {
+          lang = l;
+          const isEn = l === 'en';
+          btnEn.setAttribute('aria-pressed', String(isEn));
+          btnHi.setAttribute('aria-pressed', String(!isEn));
+          img.src = isEn ? IMG_EN : IMG_HI;
+          applyLangToggleUI(isEn);
+        }
+
+        btnEn.addEventListener('click', () => setLang('en'));
+        btnHi.addEventListener('click', () => setLang('hi'));
+
+        tick.addEventListener('change', () => {
+          const ok = tick.checked;
+          nextBtn.classList.toggle('opacity-50', !ok);
+          nextBtn.classList.toggle('pointer-events-none', !ok);
+          nextBtn.classList.toggle('bg-headingText', !ok);
+          nextBtn.classList.toggle('bg-nssBlue', ok);
+          nextBtn.setAttribute('aria-disabled', String(!ok));
+          nextBtn.href = ok ? ('oath-complete.html?lang=' + lang) : '#';
+        });
+
+        // Initialize from query param if present
+        const params = new URLSearchParams(location.search);
+        const qLang = params.get('lang');
+        if (qLang === 'hi') setLang('hi'); else setLang('en');
+      })();
+  </script>
+  </body>
+  <script src="scroll-arrow.js"></script>
+</html>
